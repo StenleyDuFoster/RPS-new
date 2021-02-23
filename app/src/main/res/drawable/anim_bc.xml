@@ -1,0 +1,12 @@
+<animation-list
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:oneshot="false">
+
+    <item android:drawable="@drawable/bc" android:duration="80" />
+    <item android:drawable="@drawable/bc2" android:duration="90" />
+    <item android:drawable="@drawable/bc3" android:duration="100" />
+    <item android:drawable="@drawable/bc4" android:duration="110" />
+    <item android:drawable="@drawable/bc5" android:duration="120" />
+    <item android:drawable="@drawable/bc6" android:duration="1000" />
+
+</animation-list>
