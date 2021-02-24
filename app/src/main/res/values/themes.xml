@@ -17,4 +17,10 @@
         <item name="neumorph_shadowColorDark">@color/dark_shadow_day</item>
     </style>
 
+    <style name="TextViewStandard">
+        <item name="fontFamily">@font/wetware</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">36sp</item>
+    </style>
+
 </resources>
