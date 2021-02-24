@@ -17,8 +17,43 @@
         <item name="neumorph_shadowColorDark">@color/dark_shadow_day</item>
     </style>
 
+    <style name="CustomShapeAppearanceRounded" parent="neumorphism">
+        <item name="neumorph_cornerFamily">rounded</item>
+        <item name="neumorph_cornerSize">32dp</item>
+
+        <item name="neumorph_cornerSizeTopLeft">16dp</item>
+        <item name="neumorph_cornerSizeTopRight">16dp</item>
+        <item name="neumorph_cornerSizeBottomLeft">16dp</item>
+        <item name="neumorph_cornerSizeBottomRight">16dp</item>
+    </style>
+
+    <style name="EditTextDefault">
+        <item name="android:padding">10dp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textColorHint">@color/dark_shadow_day</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="fontFamily">@font/rostov</item>
+    </style>
+
+    <style name="CustomShapeAppearanceOval" parent="neumorphism">
+        <item name="neumorph_cornerFamily">oval</item>
+        <item name="neumorph_cornerSize">32dp</item>
+
+        <item name="neumorph_cornerSizeTopLeft">16dp</item>
+        <item name="neumorph_cornerSizeTopRight">16dp</item>
+        <item name="neumorph_cornerSizeBottomLeft">16dp</item>
+        <item name="neumorph_cornerSizeBottomRight">16dp</item>
+    </style>
+
     <style name="TextViewStandard">
-        <item name="fontFamily">@font/wetware</item>
+        <item name="fontFamily">@font/rostov</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="TextViewBig">
+        <item name="fontFamily">@font/abhaya</item>
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">36sp</item>
     </style>

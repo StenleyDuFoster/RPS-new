@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.stenleone.rockpaperscissors.ui.fragments.signInOrRegister.SignInOrRegisterViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/rootView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/alto"
+        tools:context=".ui.activitys.MainActivity">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/logo"
+
+            app:layout_constraintBottom_toTopOf="@+id/cardLay"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <soup.neumorphism.NeumorphCardView
+            android:id="@+id/cardLay"
+            style="@style/CustomShapeAppearanceRounded"
+            android:layout_width="0dp"
+            android:layout_height="250dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:neumorph_shapeType="flat" />
+
+        <soup.neumorphism.NeumorphCardView
+            android:id="@+id/email"
+            style="@style/neumorphism"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/login"
+            app:layout_constraintEnd_toEndOf="@+id/cardLay"
+            app:layout_constraintStart_toStartOf="@+id/cardLay"
+            app:layout_constraintTop_toTopOf="@+id/cardLay"
+            app:neumorph_shapeType="pressed">
+
+            <EditText
+                style="@style/EditTextDefault"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Имя"
+                android:inputType="textEmailAddress" />
+
+        </soup.neumorphism.NeumorphCardView>
+
+        <soup.neumorphism.NeumorphCardView
+            android:id="@+id/login"
+            style="@style/neumorphism"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="50dp"
+
+            app:layout_constraintBottom_toBottomOf="@+id/cardLay"
+            app:layout_constraintEnd_toEndOf="@+id/cardLay"
+            app:layout_constraintStart_toStartOf="@+id/cardLay"
+            app:layout_constraintTop_toBottomOf="@+id/email"
+            app:neumorph_shapeType="pressed">
+
+            <EditText
+                style="@style/EditTextDefault"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Пароль"
+                android:inputType="textPassword" />
+
+        </soup.neumorphism.NeumorphCardView>
+
+        <soup.neumorphism.NeumorphCardView
+            android:id="@+id/registerButton"
+            style="@style/CustomShapeAppearanceOval"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/cardLay"
+            app:layout_constraintStart_toStartOf="@+id/cardLay"
+            app:layout_constraintTop_toBottomOf="@+id/cardLay">
+
+            <TextView
+                style="@style/TextViewStandard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/rostov"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="Ввойти или зарегестрироватся"
+                android:textAllCaps="false"
+                android:textColor="@color/black" />
+
+        </soup.neumorphism.NeumorphCardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
