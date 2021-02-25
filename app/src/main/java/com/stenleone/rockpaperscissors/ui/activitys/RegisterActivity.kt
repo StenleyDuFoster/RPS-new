@@ -11,6 +11,11 @@ import dagger.hilt.android.AndroidEntryPoint
 class RegisterActivity(override var layId: Int = R.layout.activity_register) : BaseActivity<ActivityRegisterBinding>() {
 
     override fun setup(savedInstanceState: Bundle?) {
+
+        setupFragment()
+    }
+
+    private fun setupFragment() {
         binding.apply {
 
             fragmentContainerId = rootView.id
@@ -20,6 +25,5 @@ class RegisterActivity(override var layId: Int = R.layout.activity_register) : B
             }
         }
     }
-
 
 }

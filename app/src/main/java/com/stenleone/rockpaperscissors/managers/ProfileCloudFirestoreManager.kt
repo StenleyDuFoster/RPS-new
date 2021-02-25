@@ -19,33 +19,7 @@ class ProfileCloudFirestoreManager @Inject constructor(@ApplicationContext priva
     private val store by lazy { FirebaseFirestore.getInstance() }
     private val auth by lazy { FirebaseAuth.getInstance() }
 
-    fun signInOrLogin(email: String, password: String, name: String, success: (FirebaseUser) -> Unit, failure: (Exception) -> Unit) {
-        auth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener {
-                if (it.isSuccessful) {
-                    auth.currentUser?.let { it -> success(it) }
-                } else {
-                    auth.createUserWithEmailAndPassword(email, password)
-                        .addOnCompleteListener {
-                            if (it.isSuccessful) {
-                                auth.currentUser?.let { it -> success(it) }
-                                setUserName(name)
-                            } else {
-                                failure(it.exception ?: Exception("не удалось создать пользователя"))
-                            }
-                        }
-                        .addOnFailureListener {
-                            failure(it)
-                        }
-                    failure(it.exception ?: Exception("не удалось ввойти"))
-                }
-            }
-            .addOnFailureListener {
-                failure(it)
-            }
-    }
-
-    fun signInOrLogin(email: String, password: String, success: (FirebaseUser) -> Unit, failure: (Exception) -> Unit) {
+    fun signInOrLogin(email: String, password: String, success: (FirebaseUser) -> Unit, failureEmail: (Exception) -> Unit, failurePassword: (Exception) -> Unit) {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener {
                 if (it.isSuccessful) {
@@ -53,25 +27,23 @@ class ProfileCloudFirestoreManager @Inject constructor(@ApplicationContext priva
                 } else {
                     val exception = it.exception
                     if (exception is FirebaseAuthInvalidCredentialsException && exception.message?.contains("password") ?: false) {
-                        failure(it.exception ?: Exception("не удалось ввойти"))
+                        failurePassword(it.exception ?: Exception("не удалось ввойти"))
                     } else {
                         auth.createUserWithEmailAndPassword(email, password)
                             .addOnCompleteListener {
                                 if (it.isSuccessful) {
                                     auth.currentUser?.let { it -> success(it) }
-                                } else {
-                                    failure(it.exception ?: Exception("не удалось создать пользователя"))
                                 }
                             }
                             .addOnFailureListener {
-                                failure(it)
+                                failureEmail(it)
                             }
                     }
                 }
             }
             .addOnFailureListener {
                 if (!(it.message?.contains("There is no user record corresponding to this identifier. The user may have been deleted.") ?: false)) {
-                    failure(it)
+                    failureEmail(it)
                 }
             }
     }

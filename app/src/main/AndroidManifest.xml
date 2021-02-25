@@ -12,18 +12,20 @@
         android:theme="@style/AppTheme.Launcher">
 
         <activity
-            android:name=".ui.activitys.RegisterActivity"
-            android:theme="@style/AppTheme.Launcher">
+            android:name=".ui.activitys.RegisterActivity">
+
+        </activity>
+
+        <activity
+            android:name=".ui.activitys.MainActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
 
-        <activity
-            android:name=".ui.activitys.MainActivity"
-            android:theme="@style/AppTheme"/>
+        </activity>
 
     </application>
 
