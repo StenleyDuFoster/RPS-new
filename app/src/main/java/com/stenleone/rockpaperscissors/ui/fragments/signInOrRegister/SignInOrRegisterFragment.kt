@@ -28,9 +28,7 @@ class SignInOrRegisterFragment(override var layId: Int = R.layout.fragment_regis
     private fun setupClicks() {
         binding.apply {
             registerButton.throttleClicks(
-                {
-
-                }, lifecycleScope
+                { viewModel?.register() }, lifecycleScope
             )
         }
     }
@@ -43,7 +41,9 @@ class SignInOrRegisterFragment(override var layId: Int = R.layout.fragment_regis
     }
 
     private fun setupViewModel() {
+        viewModel.apply {
 
+        }
     }
 
 }

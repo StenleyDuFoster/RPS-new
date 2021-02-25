@@ -19,12 +19,12 @@
         tools:context=".ui.activitys.MainActivity">
 
         <ImageView
+            android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:src="@drawable/logo"
-
             app:layout_constraintBottom_toTopOf="@+id/cardLay"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -58,10 +58,13 @@
             app:neumorph_shapeType="pressed">
 
             <EditText
+                android:text="@={viewModel.email}"
                 style="@style/EditTextDefault"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Имя"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:hint="Почта"
                 android:inputType="textEmailAddress" />
 
         </soup.neumorphism.NeumorphCardView>
@@ -74,7 +77,6 @@
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="50dp"
-
             app:layout_constraintBottom_toBottomOf="@+id/cardLay"
             app:layout_constraintEnd_toEndOf="@+id/cardLay"
             app:layout_constraintStart_toStartOf="@+id/cardLay"
@@ -82,9 +84,12 @@
             app:neumorph_shapeType="pressed">
 
             <EditText
+                android:text="@={viewModel.password}"
                 style="@style/EditTextDefault"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
                 android:hint="Пароль"
                 android:inputType="textPassword" />
 
