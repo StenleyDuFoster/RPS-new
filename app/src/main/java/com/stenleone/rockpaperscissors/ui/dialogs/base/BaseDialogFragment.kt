@@ -1,5 +1,6 @@
 package com.stenleone.rockpaperscissors.ui.dialogs.base
 
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -26,6 +27,7 @@ abstract class BaseDialogFragment<T : ViewDataBinding> : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().hideKeyboard()
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(0))
         setup(savedInstanceState)
     }
 

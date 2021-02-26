@@ -30,40 +30,12 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <TextView
-                style="@style/TextViewStandard"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="15dp"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="@{title}"
-                android:textStyle="bold"
-                android:visibility="@{title == null ? View.GONE : View.VISIBLE}" />
-
-            <TextView
-                style="@style/TextViewStandard"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="10dp"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="@{text}"
-                android:visibility="@{text == null ? View.GONE : View.VISIBLE}" />
-
             <soup.neumorphism.NeumorphCardView
-                android:id="@+id/okButton"
+                android:id="@+id/createButton"
                 style="@style/CustomShapeAppearanceRounded"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
-                android:layout_marginEnd="50dp"
+                android:layout_margin="10dp"
                 app:layout_constraintBottom_toBottomOf="@+id/rootLay"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -74,9 +46,35 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
                     android:gravity="center"
                     android:padding="5dp"
-                    android:text="@string/ok" />
+                    android:text="@string/create" />
+
+            </soup.neumorphism.NeumorphCardView>
+
+            <soup.neumorphism.NeumorphCardView
+                android:id="@+id/joinButton"
+                style="@style/CustomShapeAppearanceRounded"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                app:layout_constraintBottom_toBottomOf="@+id/rootLay"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:neumorph_shapeType="flat">
+
+                <TextView
+                    style="@style/TextViewStandard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="@string/join" />
 
             </soup.neumorphism.NeumorphCardView>
 

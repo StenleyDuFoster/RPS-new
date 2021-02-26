@@ -9,7 +9,7 @@ import kotlinx.android.parcel.Parcelize
 class User(
     @SerializedName("name")
     @Expose
-    val name: String?,
+    var name: String?,
     @SerializedName("email")
     @Expose
     val email: String,

@@ -1,11 +1,14 @@
 package com.stenleone.rockpaperscissors.ui.fragments.profile
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.stenleone.rockpaperscissors.R
 import com.stenleone.rockpaperscissors.databinding.FragmentProfileBinding
+import com.stenleone.rockpaperscissors.ui.dialogs.InfoDialogFragment
+import com.stenleone.rockpaperscissors.ui.dialogs.LoadingDialogFragment
 import com.stenleone.rockpaperscissors.ui.fragments.base.BaseFragment
+import com.stenleone.stanleysfilm.util.extencial.throttleClicks
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -20,11 +23,41 @@ class ProfileFragment(override var layId: Int = R.layout.fragment_profile) : Bas
     override fun setup(savedInstanceState: Bundle?) {
 
         setupViewModel()
+        setupClicks()
     }
 
     private fun setupViewModel() {
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
         viewModel.profile.observe(viewLifecycleOwner) {
-            Toast.makeText(requireContext(), it.email, Toast.LENGTH_LONG).show()
+            binding.user = it
+        }
+        viewModel.updateSuccess.observe(viewLifecycleOwner) {
+            if (it == true) {
+                InfoDialogFragment.show(childFragmentManager, null , getString(R.string.profile_update_success))
+            }
+        }
+        viewModel.inProgress.observe(viewLifecycleOwner) {
+            if (it) {
+                LoadingDialogFragment.show(childFragmentManager)
+            } else {
+                LoadingDialogFragment.cancel(childFragmentManager)
+            }
+        }
+    }
+
+    private fun setupClicks() {
+        binding.apply {
+            saveButton.throttleClicks(
+                {
+                    viewModel?.updateName()
+                }, lifecycleScope
+            )
+            backButton.throttleClicks(
+                {
+                    requireActivity().onBackPressed()
+                }, lifecycleScope
+            )
         }
     }
 }

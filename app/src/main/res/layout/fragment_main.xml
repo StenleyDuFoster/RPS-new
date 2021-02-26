@@ -19,23 +19,25 @@
         app:layout_behavior="android.support.design.widget.BottomSheetBehavior"
         tools:context=".ui.activitys.MainActivity">
 
-        <soup.neumorphism.NeumorphCardView
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/playButton"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_gravity="center"
-            app:neumorph_shapeAppearance="@style/CustomShapeAppearanceOval"
-            app:neumorph_shapeType="flat" />
+            app:cardCornerRadius="75dp"
+            app:cardElevation="20dp"
+            app:cardBackgroundColor="@color/alto">
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/playImage"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_gravity="center"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true"
-            app:lottie_rawRes="@raw/play_anim"
-            app:lottie_repeatMode="reverse" />
+            <com.airbnb.lottie.LottieAnimationView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/play_anim"
+                app:lottie_repeatMode="reverse" />
+
+        </com.google.android.material.card.MaterialCardView>
 
         <View
             android:id="@+id/grayLay"

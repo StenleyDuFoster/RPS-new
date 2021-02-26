@@ -4,7 +4,7 @@
     <string name="app_name">rockpaperscissorsNEW</string>
     <string name="app_name_custom">Камень ножницы бумага онлайн</string>
     <string name="app_in_market">https://play.google.com/store/apps/details?id=com.stenleone.rockpaperscissors</string>
-    
+    <string name="ok">Ok</string>
     <string name="error_unknown">Неизвестная ошибка</string>
 
     <!--  LOGIN  -->
@@ -19,5 +19,16 @@
     <string name="support_dev">Поддержать разработчика</string>
     <string name="log_out">Выйти из аккаунта</string>
     <string name="share_via">Поделиться приложением в</string>
+
+    <!--  PROFILE  -->
+    <string name="name">Имя</string>
+    <string name="save">Сохранить</string>
+    <string name="win">Побед:</string>
+    <string name="lose">Поражений:</string>
+    <string name="profile_update_success">Ваш профиль успешно обновлён!</string>
+
+    <!--  GAME CHOSER  -->
+    <string name="create">Создать</string>
+    <string name="join">Присоеденится</string>
 
 </resources>

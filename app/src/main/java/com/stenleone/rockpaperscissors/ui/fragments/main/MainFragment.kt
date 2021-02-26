@@ -16,6 +16,7 @@ import com.stenleone.rockpaperscissors.databinding.FragmentMainBinding
 import com.stenleone.rockpaperscissors.managers.RemoteConfigManager
 import com.stenleone.rockpaperscissors.ui.activitys.MainActivity
 import com.stenleone.rockpaperscissors.ui.activitys.RegisterActivity
+import com.stenleone.rockpaperscissors.ui.dialogs.GameChoserDialogFragment
 import com.stenleone.rockpaperscissors.ui.fragments.base.BaseFragment
 import com.stenleone.rockpaperscissors.ui.fragments.profile.ProfileFragment
 import com.stenleone.rockpaperscissors.utils.constants.RemoteConfig
@@ -75,11 +76,6 @@ class MainFragment(override var layId: Int = R.layout.fragment_main) : BaseFragm
 
     private fun setupClicks() {
         binding.apply {
-            playButton.throttleClicks(
-                {
-
-                }, lifecycleScope
-            )
             grayLay.throttleClicks(
                 {
                     BottomSheetBehavior.from(binding.bottomSheetBehavior).state = BottomSheetBehavior.STATE_COLLAPSED
@@ -132,6 +128,11 @@ class MainFragment(override var layId: Int = R.layout.fragment_main) : BaseFragm
             supportApp.throttleClicks(
                 {
 
+                }, lifecycleScope
+            )
+            playButton.throttleClicks(
+                {
+                    GameChoserDialogFragment.show(childFragmentManager)
                 }, lifecycleScope
             )
         }

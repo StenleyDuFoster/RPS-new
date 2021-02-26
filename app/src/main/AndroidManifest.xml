@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.stenleone.rockpaperscissors">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".appliction.Application"
         android:allowBackup="true"
@@ -11,13 +13,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.Launcher">
 
-        <activity
-            android:name=".ui.activitys.RegisterActivity">
+        <activity android:name=".ui.activitys.RegisterActivity">
 
         </activity>
 
-        <activity
-            android:name=".ui.activitys.MainActivity">
+        <activity android:name=".ui.activitys.MainActivity">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

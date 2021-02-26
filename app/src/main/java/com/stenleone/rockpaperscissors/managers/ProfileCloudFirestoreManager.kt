@@ -94,9 +94,19 @@ class ProfileCloudFirestoreManager @Inject constructor(@ApplicationContext priva
         }
     }
 
-    fun setUserName(name: String) {
+    fun updateUser(user: User, success: (FirebaseUser) -> Unit, failure: (Exception) -> Unit) {
         auth.currentUser?.let {
-            store.document(USERS).set(name)
+            it?.email?.let { email ->
+                store.collection(USERS).document(email).set(user)
+                    .addOnCompleteListener {
+                        if (it.isSuccessful) {
+                            auth.currentUser?.let { it -> success(it) }
+                        }
+                    }
+                    .addOnFailureListener {
+                        failure(it)
+                    }
+            }
         }
     }
 }
