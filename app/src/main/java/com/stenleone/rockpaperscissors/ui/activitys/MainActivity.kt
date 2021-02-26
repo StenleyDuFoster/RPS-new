@@ -33,4 +33,10 @@ class MainActivity(override var layId: Int = R.layout.activity_main) : BaseActiv
         }
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        if (supportFragmentManager.fragments.size == 0) {
+            finish()
+        }
+    }
 }

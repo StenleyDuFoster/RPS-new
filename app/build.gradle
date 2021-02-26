@@ -6,6 +6,7 @@ plugins {
     id 'com.google.firebase.crashlytics'
     id 'dagger.hilt.android.plugin'
     id 'androidx.navigation.safeargs'
+    id 'kotlin-android-extensions'
 }
 
 android {
@@ -54,8 +55,8 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.3'
 
     // coroutines
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.2"
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.2'
 
     // MultiDex
     implementation 'com.android.support:multidex:1.0.3'
@@ -88,4 +89,8 @@ dependencies {
 
     // neumorphism
     implementation 'com.github.fornewid:neumorphism:0.3.0'
+
+    // google play service
+    implementation 'com.google.android.play:core-ktx:1.8.1'
+    implementation 'com.android.billingclient:billing-ktx:3.0.2'
 }

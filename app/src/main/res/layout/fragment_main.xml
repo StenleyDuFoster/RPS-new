@@ -49,7 +49,7 @@
         <FrameLayout
             android:id="@+id/bottomSheetBehavior"
             android:layout_width="match_parent"
-            android:layout_height="560dp"
+            android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:elevation="100dp"
             android:orientation="vertical"
@@ -106,10 +106,133 @@
                             android:layout_height="wrap_content"
                             android:orientation="vertical">
 
-                            <!--                        <View-->
-                            <!--                            android:layout_width="match_parent"-->
-                            <!--                            android:layout_height="1dp"-->
-                            <!--                            android:background="@color/black" />-->
+                            <soup.neumorphism.NeumorphCardView
+                                android:id="@+id/profile"
+                                style="@style/CustomShapeAppearanceRounded"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="10dp"
+                                    android:gravity="center_vertical"
+                                    android:orientation="horizontal"
+                                    android:padding="5dp">
+
+                                    <TextView
+                                        style="@style/TextViewStandard"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:text="@string/profile" />
+
+                                    <ImageView
+                                        android:layout_width="40dp"
+                                        android:layout_height="40dp"
+                                        android:src="@drawable/ic_profile" />
+
+                                </LinearLayout>
+
+                            </soup.neumorphism.NeumorphCardView>
+
+                            <soup.neumorphism.NeumorphCardView
+                                android:id="@+id/share"
+                                style="@style/CustomShapeAppearanceRounded"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="10dp"
+                                    android:gravity="center_vertical"
+                                    android:orientation="horizontal"
+                                    android:padding="5dp">
+
+                                    <TextView
+                                        style="@style/TextViewStandard"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:text="@string/share_app" />
+
+                                    <ImageView
+                                        android:layout_width="40dp"
+                                        android:layout_height="40dp"
+                                        android:src="@drawable/ic_share" />
+
+                                </LinearLayout>
+
+                            </soup.neumorphism.NeumorphCardView>
+
+                            <soup.neumorphism.NeumorphCardView
+                                android:id="@+id/rateApp"
+                                style="@style/CustomShapeAppearanceRounded"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="10dp"
+                                    android:gravity="center_vertical"
+                                    android:orientation="horizontal"
+                                    android:padding="5dp">
+
+                                    <TextView
+                                        style="@style/TextViewStandard"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:text="@string/rate_app" />
+
+                                    <ImageView
+                                        android:layout_width="40dp"
+                                        android:layout_height="40dp"
+                                        android:src="@drawable/ic_rate" />
+
+                                </LinearLayout>
+
+                            </soup.neumorphism.NeumorphCardView>
+
+                            <soup.neumorphism.NeumorphCardView
+                                android:id="@+id/supportApp"
+                                style="@style/CustomShapeAppearanceRounded"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="10dp"
+                                    android:gravity="center_vertical"
+                                    android:orientation="horizontal"
+                                    android:padding="5dp">
+
+                                    <TextView
+                                        style="@style/TextViewStandard"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:text="@string/support_dev" />
+
+                                    <ImageView
+                                        android:layout_width="40dp"
+                                        android:layout_height="40dp"
+                                        android:src="@drawable/ic_support_money" />
+
+                                </LinearLayout>
+
+                            </soup.neumorphism.NeumorphCardView>
 
                             <soup.neumorphism.NeumorphCardView
                                 android:id="@+id/logOut"
@@ -132,7 +255,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_weight="1"
-                                        android:text="Выйти из аккаунта" />
+                                        android:text="@string/log_out" />
 
                                     <ImageView
                                         android:layout_width="40dp"
