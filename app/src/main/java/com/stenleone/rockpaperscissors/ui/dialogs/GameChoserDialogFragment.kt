@@ -6,8 +6,11 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.lifecycleScope
 import com.stenleone.rockpaperscissors.R
 import com.stenleone.rockpaperscissors.databinding.DialogGameChoserBinding
-import com.stenleone.rockpaperscissors.databinding.DialogInfoBinding
+import com.stenleone.rockpaperscissors.ui.activitys.MainActivity
 import com.stenleone.rockpaperscissors.ui.dialogs.base.BaseDialogFragment
+import com.stenleone.rockpaperscissors.ui.fragments.createRoom.HostCreateRoomFragment
+import com.stenleone.rockpaperscissors.ui.fragments.main.MainFragment
+import com.stenleone.rockpaperscissors.ui.fragments.player.PlayerFragment
 import com.stenleone.stanleysfilm.util.extencial.throttleClicks
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -43,12 +46,14 @@ class GameChoserDialogFragment(override var layId: Int = R.layout.dialog_game_ch
         binding.apply {
             createButton.throttleClicks(
                 {
-
+                    (requireActivity() as MainActivity).addFragment(childFragmentManager.findFragmentByTag(MainFragment.TAG), HostCreateRoomFragment(), HostCreateRoomFragment.TAG)
+                    dialog?.dismiss()
                 }, lifecycleScope
             )
             joinButton.throttleClicks(
                 {
-
+                    (requireActivity() as MainActivity).addFragment(childFragmentManager.findFragmentByTag(MainFragment.TAG), PlayerFragment(), PlayerFragment.TAG)
+                    dialog?.dismiss()
                 }, lifecycleScope
             )
         }

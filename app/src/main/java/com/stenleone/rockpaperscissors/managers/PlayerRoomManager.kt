@@ -3,7 +3,7 @@ package com.stenleone.rockpaperscissors.managers
 import com.google.firebase.database.FirebaseDatabase
 import javax.inject.Inject
 
-class HostRoomManager @Inject constructor() {
+class PlayerRoomManager @Inject constructor() {
 
     companion object {
         private const val ROOM_DB = "rooms-new"

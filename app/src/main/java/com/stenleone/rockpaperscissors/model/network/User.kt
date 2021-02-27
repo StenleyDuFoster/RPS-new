@@ -1,30 +1,33 @@
-package com.stenleone.rockpaperscissors.model
+package com.stenleone.rockpaperscissors.model.network
 
 import android.os.Parcelable
-import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-class User(
+data class User(
     @SerializedName("name")
-    @Expose
     var name: String?,
     @SerializedName("email")
-    @Expose
     val email: String,
     @SerializedName("password")
-    @Expose
     val password: String,
     @SerializedName("win")
-    @Expose
     var win: Int = 0,
     @SerializedName("lose")
-    @Expose
     var lose: Int = 0,
     @SerializedName("image")
-    @Expose
     var image: String? = null
 ): Parcelable {
-    constructor() : this ("","","",0,0,"")
+    constructor() : this (null,"","",0,0,null)
+
+    fun mapToGameUser(): GameUser {
+        return GameUser(
+            name,
+            win,
+            lose,
+            image,
+            arrayListOf()
+        )
+    }
 }

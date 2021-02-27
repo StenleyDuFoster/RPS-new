@@ -24,9 +24,9 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_gravity="center"
+            app:cardBackgroundColor="@color/alto"
             app:cardCornerRadius="75dp"
-            app:cardElevation="20dp"
-            app:cardBackgroundColor="@color/alto">
+            app:cardElevation="20dp">
 
             <com.airbnb.lottie.LottieAnimationView
                 android:layout_width="match_parent"

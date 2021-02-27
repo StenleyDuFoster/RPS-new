@@ -11,7 +11,7 @@
 
         <variable
             name="user"
-            type="com.stenleone.rockpaperscissors.model.User" />
+            type="com.stenleone.rockpaperscissors.model.network.User" />
 
     </data>
 

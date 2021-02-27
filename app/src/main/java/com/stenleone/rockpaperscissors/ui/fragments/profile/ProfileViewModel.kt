@@ -3,7 +3,7 @@ package com.stenleone.rockpaperscissors.ui.fragments.profile
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.stenleone.rockpaperscissors.managers.ProfileCloudFirestoreManager
-import com.stenleone.rockpaperscissors.model.User
+import com.stenleone.rockpaperscissors.model.network.User
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

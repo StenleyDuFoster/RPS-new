@@ -31,4 +31,13 @@
     <string name="create">Создать</string>
     <string name="join">Присоеденится</string>
 
+    <!--  Game Creator  -->
+    <string name="create_room">Создание комнаты</string>
+    <string name="name_room">Имя комнаты</string>
+    <string name="save_by_password">Защитить паролем</string>
+    <string name="player_count">Количество игроков</string>
+    <string name="game_count">Количество раундов</string>
+    <string name="online">По сети</string>
+    <string name="offline">С компютером</string>
+
 </resources>
