@@ -53,9 +53,9 @@
     </style>
 
     <style name="TextViewBig">
-        <item name="fontFamily">@font/abhaya</item>
+        <item name="fontFamily">@font/rostov</item>
         <item name="android:textColor">@color/black</item>
-        <item name="android:textSize">36sp</item>
+        <item name="android:textSize">22sp</item>
     </style>
 
     <style name="ImageTopCorner">

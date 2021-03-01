@@ -52,7 +52,7 @@ class GameChoserDialogFragment(override var layId: Int = R.layout.dialog_game_ch
             )
             joinButton.throttleClicks(
                 {
-                    (requireActivity() as MainActivity).addFragment(childFragmentManager.findFragmentByTag(MainFragment.TAG), PlayerFragment(), PlayerFragment.TAG)
+                    (requireActivity() as MainActivity).addFragment(requireActivity().supportFragmentManager.findFragmentByTag(MainFragment.TAG), PlayerFragment(), PlayerFragment.TAG)
                     dialog?.dismiss()
                 }, lifecycleScope
             )

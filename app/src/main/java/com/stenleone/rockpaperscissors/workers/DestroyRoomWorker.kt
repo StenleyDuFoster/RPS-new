@@ -15,6 +15,7 @@ class DestroyRoomWorker @AssistedInject constructor(
 ) : CoroutineWorker(context, workerParams) {
 
     companion object {
+        const val TAG = "DestroyRoomWorker"
         const val ROOM_NAME = "room_name"
     }
 
