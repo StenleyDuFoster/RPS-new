@@ -39,5 +39,7 @@
     <string name="game_count">Количество раундов</string>
     <string name="online">По сети</string>
     <string name="offline">С компютером</string>
+    <string name="edit_text_must_not_empty">Поле не должно быть пустым</string>
+    <string name="choise_game_parameters">Выберите режим игры ("%s" или "%s")</string>
 
 </resources>

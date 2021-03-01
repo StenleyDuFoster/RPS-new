@@ -73,7 +73,7 @@
             app:neumorph_shapeType="pressed">
 
             <EditText
-                android:id="@+id/emailEdit"
+                android:id="@+id/nameEdit"
                 style="@style/EditTextDefault"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -113,10 +113,10 @@
             android:id="@+id/pass"
             style="@style/neumorphism"
             android:layout_width="0dp"
-            android:visibility="visible"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textAddPassword"
@@ -188,23 +188,22 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:visibility="visible"
-            app:cardBackgroundColor="@color/alto"
-            app:layout_constraintBottom_toBottomOf="@+id/offline"
-            app:layout_constraintEnd_toEndOf="@+id/offline"
+            app:layout_constraintEnd_toEndOf="@+id/name"
             app:layout_constraintStart_toEndOf="@+id/offline"
-            app:layout_constraintTop_toBottomOf="@+id/textGameCount"
+            app:layout_constraintTop_toTopOf="@+id/offline"
             app:strokeColor="@color/white"
             app:strokeWidth="1dp">
 
 
             <TextView
+                android:id="@+id/onlineText"
                 style="@style/TextViewStandard"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
+                android:background="@drawable/button_transition"
                 android:gravity="center"
                 android:text="@string/online"
                 android:textAllCaps="false"
@@ -217,20 +216,21 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
-            app:cardBackgroundColor="@color/white"
+            app:cardElevation="0dp"
             app:layout_constraintEnd_toStartOf="@+id/online"
-            app:layout_constraintStart_toStartOf="@+id/online"
+            app:layout_constraintStart_toStartOf="@+id/name"
             app:layout_constraintTop_toBottomOf="@+id/textGameCount"
             app:strokeColor="@color/white"
             app:strokeWidth="1dp">
 
             <TextView
+                android:id="@+id/offlineText"
                 style="@style/TextViewStandard"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
+                android:background="@drawable/button_transition"
                 android:gravity="center"
                 android:text="@string/offline"
                 android:textAllCaps="false"
@@ -239,7 +239,7 @@
         </com.google.android.material.card.MaterialCardView>
 
         <soup.neumorphism.NeumorphCardView
-            android:id="@+id/registerButton"
+            android:id="@+id/createButton"
             style="@style/CustomShapeAppearanceOval"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

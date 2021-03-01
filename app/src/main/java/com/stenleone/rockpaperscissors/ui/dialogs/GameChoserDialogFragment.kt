@@ -46,7 +46,7 @@ class GameChoserDialogFragment(override var layId: Int = R.layout.dialog_game_ch
         binding.apply {
             createButton.throttleClicks(
                 {
-                    (requireActivity() as MainActivity).addFragment(childFragmentManager.findFragmentByTag(MainFragment.TAG), HostCreateRoomFragment(), HostCreateRoomFragment.TAG)
+                    (requireActivity() as MainActivity).addFragment(requireActivity().supportFragmentManager.findFragmentByTag(MainFragment.TAG), HostCreateRoomFragment(), HostCreateRoomFragment.TAG)
                     dialog?.dismiss()
                 }, lifecycleScope
             )

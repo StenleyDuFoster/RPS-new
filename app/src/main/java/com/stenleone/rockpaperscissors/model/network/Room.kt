@@ -16,4 +16,8 @@ data class Room(
     val players: ArrayList<GameUser>
 ) : Parcelable {
     constructor() : this("", null, 0, 0, "", arrayListOf())
+//
+//    constructor(
+//        name: String, password: String? = null, playerCount: Int, games: Int, date_create: String, players: ArrayList<GameUser>
+//    ) : this("", null, 0, 0, "", arrayListOf())
 }
