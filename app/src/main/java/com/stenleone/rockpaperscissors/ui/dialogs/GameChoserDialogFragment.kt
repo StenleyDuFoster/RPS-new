@@ -9,6 +9,7 @@ import com.stenleone.rockpaperscissors.databinding.DialogGameChoserBinding
 import com.stenleone.rockpaperscissors.ui.activitys.MainActivity
 import com.stenleone.rockpaperscissors.ui.dialogs.base.BaseDialogFragment
 import com.stenleone.rockpaperscissors.ui.fragments.createRoom.HostCreateRoomFragment
+import com.stenleone.rockpaperscissors.ui.fragments.findRoom.FindRoomFragment
 import com.stenleone.rockpaperscissors.ui.fragments.main.MainFragment
 import com.stenleone.rockpaperscissors.ui.fragments.player.PlayerFragment
 import com.stenleone.stanleysfilm.util.extencial.throttleClicks
@@ -52,7 +53,7 @@ class GameChoserDialogFragment(override var layId: Int = R.layout.dialog_game_ch
             )
             joinButton.throttleClicks(
                 {
-                    (requireActivity() as MainActivity).addFragment(requireActivity().supportFragmentManager.findFragmentByTag(MainFragment.TAG), PlayerFragment(), PlayerFragment.TAG)
+                    (requireActivity() as MainActivity).addFragment(requireActivity().supportFragmentManager.findFragmentByTag(MainFragment.TAG), FindRoomFragment(), FindRoomFragment.TAG)
                     dialog?.dismiss()
                 }, lifecycleScope
             )

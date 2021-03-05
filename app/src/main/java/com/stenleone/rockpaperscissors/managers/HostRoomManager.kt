@@ -63,8 +63,22 @@ class HostRoomManager @Inject constructor() {
     }
 
     fun updateRoomPlayer(room: Room, success: () -> Unit, failure: (String) -> Unit) {
-        val mapUpdate = HashMap<String, ArrayList<GameUser>>()
+        val mapUpdate = HashMap<String, Map<String, GameUser>>()
         mapUpdate.put("players", room.players)
+        realTimeDB.getReference(ROOM_DB).child(room.name).updateChildren(mapUpdate as Map<String, Any>)
+            .addOnCompleteListener {
+                if (it.isSuccessful) {
+                    success()
+                }
+            }
+            .addOnFailureListener {
+                failure(it.message ?: "")
+            }
+    }
+
+    fun updateRoomRound(room: Room, success: () -> Unit, failure: (String) -> Unit) {
+        val mapUpdate = HashMap<String, Int>()
+        mapUpdate.put("round", room.round)
         realTimeDB.getReference(ROOM_DB).child(room.name).updateChildren(mapUpdate as Map<String, Any>)
             .addOnCompleteListener {
                 if (it.isSuccessful) {

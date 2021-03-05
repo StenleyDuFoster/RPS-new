@@ -1,4 +1,4 @@
-package com.stenleone.rockpaperscissors.ui.adapters.recycler
+package com.stenleone.rockpaperscissors.ui.adapters.recycler.base
 
 import androidx.recyclerview.widget.RecyclerView
 import com.stenleone.rockpaperscissors.interfaces.RecyclerHolder

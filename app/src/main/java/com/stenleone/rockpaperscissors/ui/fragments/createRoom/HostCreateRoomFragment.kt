@@ -119,8 +119,9 @@ class HostCreateRoomFragment(override var layId: Int = R.layout.fragment_create_
                             if (addPassCheckBox.isChecked) passEdit.text.toString() else null,
                             gamersCount?.toIntOrNull() ?: 2,
                             gameCount?.toIntOrNull() ?: 1,
+                            1,
                             Date(System.currentTimeMillis()).toString(),
-                            arrayListOf()
+                            mapOf()
                         )
                         if (isOnline == true) {
                             (requireActivity() as MainActivity).addFragment(this@HostCreateRoomFragment, HostPlayerFragment(), HostPlayerFragment.TAG, roomInfo)

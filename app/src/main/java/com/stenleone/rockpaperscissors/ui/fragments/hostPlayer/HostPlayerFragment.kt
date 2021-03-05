@@ -1,6 +1,7 @@
 package com.stenleone.rockpaperscissors.ui.fragments.hostPlayer
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.observe
@@ -48,8 +49,14 @@ class HostPlayerFragment(override var layId: Int = R.layout.fragment_player) : B
                 }
             }
             roomData.observe(viewLifecycleOwner) {
+
+                if (it.round > it.games) {
+                    Toast.makeText(requireContext(), "finish game", Toast.LENGTH_SHORT).show()
+                }
+                binding.roundText.text = getString(R.string.round_text, it.round.toString(), it.games.toString())
+
                 gamerAdapter.listItems.clear()
-                val players = it.players
+                val players = ArrayList(it.players.values)
                 players.removeFirstOrNull()
                 gamerAdapter.listItems.addAll(players)
                 gamerAdapter.notifyDataSetChanged()
@@ -57,6 +64,14 @@ class HostPlayerFragment(override var layId: Int = R.layout.fragment_player) : B
             error.observe(viewLifecycleOwner) {
 
             }
+            lockButtons.observe(viewLifecycleOwner) {
+                binding.apply {
+                    rockButton.isClickable = true
+                    paperButton.isClickable = true
+                    scissorsButton.isClickable = true
+                }
+            }
+
         }
     }
 

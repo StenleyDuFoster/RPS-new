@@ -48,6 +48,22 @@
             app:layout_constraintTop_toTopOf="@+id/backButton"
             tools:text="Room name" />
 
+        <TextView
+            android:id="@+id/roundText"
+            style="@style/TextViewStandard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:padding="10dp"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toTopOf="@+id/controlsLay"
+            app:layout_constraintEnd_toStartOf="@+id/playerLay"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/playerLay"
+            tools:text="Room name" />
+
         <soup.neumorphism.NeumorphCardView
             android:id="@+id/controlsLay"
             style="@style/CustomShapeAppearanceRounded"

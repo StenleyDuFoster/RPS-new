@@ -2,6 +2,7 @@ package com.stenleone.rockpaperscissors.ui.activitys
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.stenleone.rockpaperscissors.R
