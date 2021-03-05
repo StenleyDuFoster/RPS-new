@@ -4,6 +4,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.stenleone.rockpaperscissors.model.network.GameUser
 import com.stenleone.rockpaperscissors.model.network.Room
 import javax.inject.Inject
 
@@ -59,5 +60,19 @@ class HostRoomManager @Inject constructor() {
                 failure(it.message ?: "")
             }
 
+    }
+
+    fun updateRoomPlayer(room: Room, success: () -> Unit, failure: (String) -> Unit) {
+        val mapUpdate = HashMap<String, ArrayList<GameUser>>()
+        mapUpdate.put("players", room.players)
+        realTimeDB.getReference(ROOM_DB).child(room.name).updateChildren(mapUpdate as Map<String, Any>)
+            .addOnCompleteListener {
+                if (it.isSuccessful) {
+                    success()
+                }
+            }
+            .addOnFailureListener {
+                failure(it.message ?: "")
+            }
     }
 }

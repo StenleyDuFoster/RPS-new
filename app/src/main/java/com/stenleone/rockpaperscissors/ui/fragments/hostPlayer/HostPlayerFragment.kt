@@ -4,16 +4,21 @@ import android.os.Bundle
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.observe
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.work.*
 import com.stenleone.rockpaperscissors.R
 import com.stenleone.rockpaperscissors.databinding.FragmentPlayerBinding
+import com.stenleone.rockpaperscissors.model.network.GameUser
 import com.stenleone.rockpaperscissors.model.network.Room
 import com.stenleone.rockpaperscissors.ui.activitys.base.BaseActivity
+import com.stenleone.rockpaperscissors.ui.adapters.recycler.GamersAdapter
 import com.stenleone.rockpaperscissors.ui.fragments.base.BaseFragment
+import com.stenleone.rockpaperscissors.utils.constants.RPS
 import com.stenleone.rockpaperscissors.workers.DestroyRoomWorker
 import com.stenleone.stanleysfilm.util.extencial.throttleClicks
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class HostPlayerFragment(override var layId: Int = R.layout.fragment_player) : BaseFragment<FragmentPlayerBinding>() {
@@ -23,6 +28,8 @@ class HostPlayerFragment(override var layId: Int = R.layout.fragment_player) : B
     }
 
     private val viewModel: HostPlayerViewModel by viewModels()
+    @Inject
+    lateinit var gamerAdapter: GamersAdapter
 
     override fun setup(savedInstanceState: Bundle?) {
 
@@ -34,9 +41,18 @@ class HostPlayerFragment(override var layId: Int = R.layout.fragment_player) : B
         viewModel.apply {
             arguments?.getParcelable<Room>(BaseActivity.DATA)?.let {
                 setupRoom(it)
+                binding.apply {
+                    title.text = it.name
+                    gameRecycler.layoutManager = GridLayoutManager(requireContext(), 3)
+                    gameRecycler.adapter = gamerAdapter
+                }
             }
             roomData.observe(viewLifecycleOwner) {
-
+                gamerAdapter.listItems.clear()
+                val players = it.players
+                players.removeFirstOrNull()
+                gamerAdapter.listItems.addAll(players)
+                gamerAdapter.notifyDataSetChanged()
             }
             error.observe(viewLifecycleOwner) {
 
@@ -51,7 +67,31 @@ class HostPlayerFragment(override var layId: Int = R.layout.fragment_player) : B
                     requireActivity().onBackPressed()
                 }, lifecycleScope
             )
+            rockButton.throttleClicks(
+                {
+                    createStep(RPS.ROCK)
+                }, lifecycleScope
+            )
+            scissorsButton.throttleClicks(
+                {
+                    createStep(RPS.SCISSORS)
+                }, lifecycleScope
+            )
+            paperButton.throttleClicks(
+                {
+                    createStep(RPS.PAPER)
+                }, lifecycleScope
+            )
+      }
+    }
+
+    private fun createStep(step: RPS) {
+        binding.apply {
+            rockButton.isClickable = false
+            paperButton.isClickable = false
+            scissorsButton.isClickable = false
         }
+        viewModel.createStep(step)
     }
 
     private fun removeRoom(withDelay: Boolean = false) {
