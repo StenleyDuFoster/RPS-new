@@ -4,10 +4,10 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.google.gson.annotations.SerializedName
-import com.stenleone.rockpaperscissors.model.network.GameUser
+import com.google.gson.Gson
 import com.stenleone.rockpaperscissors.model.network.Room
 import javax.inject.Inject
+
 
 class FindRoomManager @Inject constructor() {
 
@@ -17,12 +17,22 @@ class FindRoomManager @Inject constructor() {
 
     private val realTimeDB by lazy { FirebaseDatabase.getInstance() }
 
-    fun observeRooms(update: (ListRooms) -> Unit, failure: (String) -> Unit) {
+    fun observeRooms(update: (ArrayList<Room>) -> Unit, failure: (String) -> Unit) {
         realTimeDB.getReference(ROOM_DB).addValueEventListener(object : ValueEventListener {
 
             override fun onDataChange(snapshot: DataSnapshot) {
                 val newData = try {
-                    snapshot.getValue(ListRooms::class.java)
+                    val local = snapshot.value as HashMap<String, HashMap<String, Any>>
+                    val rooms = arrayListOf<Room>()
+
+                    local.values.forEach {
+                        val gson = Gson()
+                        val jsonElement = gson.toJsonTree(it)
+                        val pojo: Room = gson.fromJson(jsonElement, Room::class.java)
+                        rooms.add(pojo)
+                    }
+
+                    rooms
                 } catch (e: Exception) {
                     null
                 }
@@ -34,11 +44,5 @@ class FindRoomManager @Inject constructor() {
             }
 
         })
-    }
-
-    data class ListRooms(
-        val o: Room?
-    ) {
-        constructor() : this(null)
     }
 }

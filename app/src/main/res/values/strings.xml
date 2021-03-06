@@ -36,7 +36,7 @@
     <string name="name_room">Имя комнаты</string>
     <string name="save_by_password">Защитить паролем</string>
     <string name="player_count">Количество игроков</string>
-    <string name="game_count">Количество раундов</string>
+    <string name="game_count">Раунд</string>
     <string name="online">По сети</string>
     <string name="offline">С компютером</string>
     <string name="edit_text_must_not_empty">Поле не должно быть пустым</string>

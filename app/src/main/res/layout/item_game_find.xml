@@ -13,7 +13,7 @@
 
     </data>
 
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -31,6 +31,7 @@
                 android:padding="10dp">
 
                 <TextView
+                    android:text="@{room.name}"
                     android:id="@+id/roomName"
                     style="@style/TextViewBig"
                     android:layout_width="wrap_content"
@@ -50,7 +51,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:text='@{@string/game_count + room.round}'
+                    android:text='@{@string/game_count + " " + room.round + "/" + room.games}'
                     android:textAllCaps="false"
                     android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="parent"
@@ -64,7 +65,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:text='@{@string/player_count + room.players.size() + "/" + room.playerCount}'
+                    android:text='@{@string/player_count + " " + room.players.size() + "/" + room.playerCount}'
                     android:textAllCaps="false"
                     android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="parent"
@@ -83,5 +84,5 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </soup.neumorphism.NeumorphCardView>
 
-    </FrameLayout>
+    </RelativeLayout>
 </layout>

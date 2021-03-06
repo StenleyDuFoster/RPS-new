@@ -10,7 +10,6 @@ data class Room(
     val name: String,
     @SerializedName("password")
     val password: String? = null,
-    @SerializedName("player_count")
     val playerCount: Int,
     @SerializedName("games")
     val games: Int,
