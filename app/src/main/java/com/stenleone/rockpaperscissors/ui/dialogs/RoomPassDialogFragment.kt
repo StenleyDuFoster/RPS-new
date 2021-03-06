@@ -11,7 +11,7 @@ import com.stenleone.stanleysfilm.util.extencial.throttleClicks
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class InfoDialogFragment(override var layId: Int = R.layout.dialog_info) : BaseDialogFragment<DialogInfoBinding>() {
+class RoomPassDialogFragment(override var layId: Int = R.layout.dialog_info) : BaseDialogFragment<DialogInfoBinding>() {
 
     companion object {
 
@@ -22,7 +22,7 @@ class InfoDialogFragment(override var layId: Int = R.layout.dialog_info) : BaseD
 
         fun show(fragmentManager: FragmentManager, title: String?, text: String?, withAction: Int? = null) {
 
-            InfoDialogFragment().also {
+            RoomPassDialogFragment().also {
                 if (fragmentManager.findFragmentByTag(TAG) == null) {
                     val bundle = Bundle().also {
                         it.putString(TITLE, title)

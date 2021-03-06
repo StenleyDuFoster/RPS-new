@@ -40,12 +40,16 @@
     <string name="online">По сети</string>
     <string name="offline">С компютером</string>
     <string name="edit_text_must_not_empty">Поле не должно быть пустым</string>
-    <string name="choise_game_parameters">Выберите режим игры ("%s" или "%s")</string>
+    <string name="choise_game_parameters">Выберите режим игры (\"%s\" или \"%s\")</string>
 
     <!--  Game Play  -->
     <string name="round_text">Раунд %s/%s</string>
 
     <!--  Find Room  -->
     <string name="find_room">Поиск игровой комнаты</string>
+    <string name="room_connected_failed">Не удалось присоеденится</string>
+    <string name="room_no_actual_player_count">В комнате \"%s\" нет свободных мест.</string>
+    <string name="room_long_time_create">Эта комната была создана более часа назад, возможно игроки уже покинули её</string>
+    <string name="advice">Совет</string>
 
 </resources>
