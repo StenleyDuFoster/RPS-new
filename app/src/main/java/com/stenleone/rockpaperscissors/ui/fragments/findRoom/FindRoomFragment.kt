@@ -12,7 +12,9 @@ import com.stenleone.rockpaperscissors.interfaces.SimpleClickListener
 import com.stenleone.rockpaperscissors.model.network.Room
 import com.stenleone.rockpaperscissors.ui.adapters.recycler.GameFindAdapter
 import com.stenleone.rockpaperscissors.ui.dialogs.InfoDialogFragment
+import com.stenleone.rockpaperscissors.ui.dialogs.enterPassRoom.RoomPassDialogFragment
 import com.stenleone.rockpaperscissors.ui.fragments.base.BaseFragment
+import com.stenleone.rockpaperscissors.viewModel.ConnectToRoomViewModel
 import com.stenleone.stanleysfilm.util.extencial.throttleClicks
 import dagger.hilt.android.AndroidEntryPoint
 import java.lang.Exception
@@ -28,6 +30,8 @@ class FindRoomFragment(override var layId: Int = R.layout.fragment_find_room) : 
     }
 
     private val viewModel: FindRoomViewModel by viewModels()
+    private val connectedViewModel: ConnectToRoomViewModel by viewModels()
+    private var lastClickRoom: Room? = null
 
     @Inject
     lateinit var gameFindAdapter: GameFindAdapter
@@ -69,10 +73,7 @@ class FindRoomFragment(override var layId: Int = R.layout.fragment_find_room) : 
                 override fun click(item: Parcelable) {
                     if (item is Room) {
 
-                        if (item.playerCount <= item.players.values.size) {
-                            InfoDialogFragment.show(childFragmentManager, getString(R.string.room_connected_failed), getString(R.string.room_no_actual_player_count, item.name))
-                            return
-                        }
+                        lastClickRoom = item
 
                         val calendar = Calendar.getInstance()
                         val sdf = SimpleDateFormat("EEE MMM dd HH:mm:ss zzzz yyyy")
@@ -83,12 +84,14 @@ class FindRoomFragment(override var layId: Int = R.layout.fragment_find_room) : 
                         }
                         calendar.add(Calendar.HOUR, 1)
 
-                        if (calendar.timeInMillis < Calendar.getInstance().timeInMillis) {
+                        if (item.playerCount <= item.players.values.size) {
+                            InfoDialogFragment.show(childFragmentManager, getString(R.string.room_connected_failed), getString(R.string.room_no_actual_player_count, item.name))
+                        } else if (calendar.timeInMillis < Calendar.getInstance().timeInMillis) {
                             InfoDialogFragment.show(childFragmentManager, getString(R.string.advice), getString(R.string.room_long_time_create), 0)
-                            return
+                        } else {
+                            goToRoom()
                         }
 
-                        goToRoom()
                     }
                 }
 
@@ -109,7 +112,13 @@ class FindRoomFragment(override var layId: Int = R.layout.fragment_find_room) : 
     }
 
     private fun goToRoom() {
+        lastClickRoom?.let {
+            if (it.password != null) {
+                RoomPassDialogFragment.show(childFragmentManager, getString(R.string.room_defendended_by_pass, it.name), it)
+            } else {
 
+            }
+        }
     }
 
     override fun infoDialogOkClick(type: Int) {

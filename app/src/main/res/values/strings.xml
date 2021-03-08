@@ -51,5 +51,7 @@
     <string name="room_no_actual_player_count">В комнате \"%s\" нет свободных мест.</string>
     <string name="room_long_time_create">Эта комната была создана более часа назад, возможно игроки уже покинули её</string>
     <string name="advice">Совет</string>
+    <string name="room_defendended_by_pass">Комната \"%s\" защищена паролем</string>
+    <string name="log_in">Ввойти</string>
 
 </resources>

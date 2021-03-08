@@ -102,7 +102,7 @@ class HostPlayerViewModel @Inject constructor(
     private fun addHostPlayer(room: Room) {
         profileCloudFirestoreManager.getProfile({
             val newRoom = room
-            name = it.name ?: it.email
+            name = it.name ?: it.email.replace(Regex("\\$%.@"), "")
             val gameUser = GameUser(
                 name = name,
                 win = it.win,
