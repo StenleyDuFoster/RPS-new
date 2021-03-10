@@ -20,14 +20,14 @@ class InfoDialogFragment(override var layId: Int = R.layout.dialog_info) : BaseD
         const val TEXT = "text"
         const val WITH_ACTION = "with_action"
 
-        fun show(fragmentManager: FragmentManager, title: String?, text: String?, withAction: Int? = null) {
+        fun show(fragmentManager: FragmentManager, title: String?, text: String?, withAction: Int = 0) {
 
             InfoDialogFragment().also {
                 if (fragmentManager.findFragmentByTag(TAG) == null) {
                     val bundle = Bundle().also {
                         it.putString(TITLE, title)
                         it.putString(TEXT, text)
-                        if (withAction != null) {
+                        if (withAction != 0) {
                             it.putInt(WITH_ACTION, withAction)
                         }
                     }
@@ -57,7 +57,7 @@ class InfoDialogFragment(override var layId: Int = R.layout.dialog_info) : BaseD
             okButton.throttleClicks(
                 {
                     val action = arguments?.getInt(WITH_ACTION)
-                    if (action != null && parentFragment is Callback)  {
+                    if (action != null && action != 0 && parentFragment is Callback)  {
                         (parentFragment as Callback).infoDialogOkClick(action)
                     }
                     dialog?.dismiss()

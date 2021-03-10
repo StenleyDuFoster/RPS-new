@@ -13,18 +13,63 @@ import javax.inject.Inject
 
 class GamersAdapter @Inject constructor() : BaseRecycler<GameUser>() {
 
-    lateinit var clickListener: SimpleClickListener
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return GameLay(ItemGameLayBinding.inflate(LayoutInflater.from(parent.context)))
+    companion object {
+        const val PLAYER_TYPE = 0
+        const val EMPTY_TYPE = 1
     }
 
-    inner class GameLay(val binding: ItemGameLayBinding) : RecyclerView.ViewHolder(binding.root), RecyclerHolder {
+    lateinit var clickListener: SimpleClickListener
+    var size = 0
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return when(viewType) {
+            PLAYER_TYPE -> {
+                PlayerGameLay(ItemGameLayBinding.inflate(LayoutInflater.from(parent.context)))
+            }
+            else -> {
+                EmptyGameLay(ItemGameLayBinding.inflate(LayoutInflater.from(parent.context)))
+            }
+        }
+    }
+
+    override fun getItemCount(): Int {
+        return size
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return if (position >= listItems.size) {
+            EMPTY_TYPE
+        } else {
+            PLAYER_TYPE
+        }
+    }
+
+    inner class PlayerGameLay(val binding: ItemGameLayBinding) : RecyclerView.ViewHolder(binding.root), RecyclerHolder {
 
         override fun bind() {
             binding.apply {
 
                 gamer = listItems[adapterPosition]
+                binding.playerLay.throttleClicks(
+                    {
+                        if (this@GamersAdapter::clickListener.isInitialized) {
+                            clickListener.click(listItems[adapterPosition])
+                        }
+                    }, recyclerScope
+                )
+            }
+        }
+
+        override fun unBind() {
+
+        }
+    }
+
+    inner class EmptyGameLay(val binding: ItemGameLayBinding) : RecyclerView.ViewHolder(binding.root), RecyclerHolder {
+
+        override fun bind() {
+            binding.apply {
+
                 binding.playerLay.throttleClicks(
                     {
                         if (this@GamersAdapter::clickListener.isInitialized) {

@@ -43,6 +43,7 @@ class HostPlayerFragment(override var layId: Int = R.layout.fragment_player) : B
             arguments?.getParcelable<Room>(BaseActivity.DATA)?.let {
                 setupRoom(it)
                 binding.apply {
+                    gamerAdapter.size = it.playerCount
                     title.text = it.name
                     gameRecycler.layoutManager = GridLayoutManager(requireContext(), 3)
                     gameRecycler.adapter = gamerAdapter

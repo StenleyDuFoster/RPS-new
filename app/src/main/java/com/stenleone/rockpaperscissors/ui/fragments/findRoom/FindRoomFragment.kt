@@ -1,5 +1,6 @@
 package com.stenleone.rockpaperscissors.ui.fragments.findRoom
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Parcelable
 import androidx.fragment.app.viewModels
@@ -10,11 +11,14 @@ import com.stenleone.rockpaperscissors.R
 import com.stenleone.rockpaperscissors.databinding.FragmentFindRoomBinding
 import com.stenleone.rockpaperscissors.interfaces.SimpleClickListener
 import com.stenleone.rockpaperscissors.model.network.Room
+import com.stenleone.rockpaperscissors.ui.activitys.MainActivity
 import com.stenleone.rockpaperscissors.ui.adapters.recycler.GameFindAdapter
 import com.stenleone.rockpaperscissors.ui.dialogs.InfoDialogFragment
+import com.stenleone.rockpaperscissors.ui.dialogs.LoadingDialogFragment
+import com.stenleone.rockpaperscissors.viewModel.ConnectToRoomViewModel
 import com.stenleone.rockpaperscissors.ui.dialogs.enterPassRoom.RoomPassDialogFragment
 import com.stenleone.rockpaperscissors.ui.fragments.base.BaseFragment
-import com.stenleone.rockpaperscissors.viewModel.ConnectToRoomViewModel
+import com.stenleone.rockpaperscissors.ui.fragments.player.PlayerFragment
 import com.stenleone.stanleysfilm.util.extencial.throttleClicks
 import dagger.hilt.android.AndroidEntryPoint
 import java.lang.Exception
@@ -27,6 +31,7 @@ class FindRoomFragment(override var layId: Int = R.layout.fragment_find_room) : 
 
     companion object {
         const val TAG = "FindRoomFragment"
+        const val INFO_DIALOG_OPEN_ROOM_ACTION = 0
     }
 
     private val viewModel: FindRoomViewModel by viewModels()
@@ -54,14 +59,37 @@ class FindRoomFragment(override var layId: Int = R.layout.fragment_find_room) : 
             gameFindAdapter.listItems.clear()
             gameFindAdapter.listItems.addAll(rooms)
 
-            if (startPosition == 0) {
-                gameFindAdapter.notifyItemRangeInserted(0, gameFindAdapter.listItems.size)
-            } else if (startPosition > gameFindAdapter.listItems.size) {
-                gameFindAdapter.notifyItemRangeRemoved(startPosition, startPosition - gameFindAdapter.listItems.size)
-            } else if (startPosition < gameFindAdapter.listItems.size) {
-                gameFindAdapter.notifyItemRangeRemoved(gameFindAdapter.listItems.size - startPosition, gameFindAdapter.listItems.size)
+            when {
+                startPosition == 0 -> {
+                    gameFindAdapter.notifyItemRangeInserted(0, gameFindAdapter.listItems.size)
+                }
+                startPosition > gameFindAdapter.listItems.size -> {
+                    gameFindAdapter.notifyItemRangeRemoved(startPosition, startPosition - gameFindAdapter.listItems.size)
+                }
+                startPosition < gameFindAdapter.listItems.size -> {
+                    gameFindAdapter.notifyItemRangeRemoved(gameFindAdapter.listItems.size - startPosition, gameFindAdapter.listItems.size)
+                }
+                else -> {
+                    gameFindAdapter.notifyDataSetChanged()
+                }
+            }
+        }
+
+        connectedViewModel.connected.observe(viewLifecycleOwner) { connected ->
+            if (connected) {
+                lastClickRoom?.let { room ->
+                    val bundle = Bundle().also {
+                        it.putParcelable(PlayerFragment.ROOM, room)
+                    }
+                    (requireActivity() as MainActivity).addFragment(this, PlayerFragment(), PlayerFragment.TAG, bundle)
+                }
+            }
+        }
+        connectedViewModel.inProgress.observe(viewLifecycleOwner) {
+            if (it) {
+                LoadingDialogFragment.show(childFragmentManager)
             } else {
-                gameFindAdapter.notifyDataSetChanged()
+                LoadingDialogFragment.cancel(childFragmentManager)
             }
         }
     }
@@ -70,6 +98,7 @@ class FindRoomFragment(override var layId: Int = R.layout.fragment_find_room) : 
         binding.apply {
             gameFindAdapter.clickListener = object : SimpleClickListener {
 
+                @SuppressLint("SimpleDateFormat")
                 override fun click(item: Parcelable) {
                     if (item is Room) {
 
@@ -84,12 +113,16 @@ class FindRoomFragment(override var layId: Int = R.layout.fragment_find_room) : 
                         }
                         calendar.add(Calendar.HOUR, 1)
 
-                        if (item.playerCount <= item.players.values.size) {
-                            InfoDialogFragment.show(childFragmentManager, getString(R.string.room_connected_failed), getString(R.string.room_no_actual_player_count, item.name))
-                        } else if (calendar.timeInMillis < Calendar.getInstance().timeInMillis) {
-                            InfoDialogFragment.show(childFragmentManager, getString(R.string.advice), getString(R.string.room_long_time_create), 0)
-                        } else {
-                            goToRoom()
+                        when {
+                            item.playerCount <= item.players.values.size -> {
+                                InfoDialogFragment.show(childFragmentManager, getString(R.string.room_connected_failed), getString(R.string.room_no_actual_player_count, item.name))
+                            }
+                            calendar.timeInMillis < Calendar.getInstance().timeInMillis -> {
+                                InfoDialogFragment.show(childFragmentManager, getString(R.string.advice), getString(R.string.room_long_time_create), INFO_DIALOG_OPEN_ROOM_ACTION)
+                            }
+                            else -> {
+                                goToRoom()
+                            }
                         }
 
                     }
@@ -116,12 +149,16 @@ class FindRoomFragment(override var layId: Int = R.layout.fragment_find_room) : 
             if (it.password != null) {
                 RoomPassDialogFragment.show(childFragmentManager, getString(R.string.room_defendended_by_pass, it.name), it)
             } else {
-
+                connectedViewModel.connect(it)
             }
         }
     }
 
     override fun infoDialogOkClick(type: Int) {
-        goToRoom()
+        when (type) {
+            INFO_DIALOG_OPEN_ROOM_ACTION -> {
+                goToRoom()
+            }
+        }
     }
 }

@@ -13,10 +13,6 @@ abstract class BaseRecycler<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>()
     val recyclerJob = Job()
     val recyclerScope = CoroutineScope(Main + recyclerJob)
 
-    override fun getItemCount(): Int {
-        return listItems.size
-    }
-
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         (holder as RecyclerHolder).bind()
     }

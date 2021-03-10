@@ -19,6 +19,10 @@ class GameFindAdapter @Inject constructor() : BaseRecycler<Room>() {
         return GameLay(ItemGameFindBinding.inflate(LayoutInflater.from(parent.context)))
     }
 
+    override fun getItemCount(): Int {
+        return listItems.size
+    }
+
     inner class GameLay(val binding: ItemGameFindBinding) : RecyclerView.ViewHolder(binding.root), RecyclerHolder {
 
         override fun bind() {
