@@ -1,4 +1,4 @@
-package com.stenleone.rockpaperscissors.managers
+package com.stenleone.rockpaperscissors.managers.prefs
 
 import android.content.Context
 import dagger.hilt.android.qualifiers.ApplicationContext

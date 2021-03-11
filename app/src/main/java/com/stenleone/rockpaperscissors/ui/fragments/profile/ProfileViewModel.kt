@@ -2,18 +2,22 @@ package com.stenleone.rockpaperscissors.ui.fragments.profile
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.stenleone.rockpaperscissors.managers.ProfileCloudFirestoreManager
+import com.stenleone.rockpaperscissors.managers.general.ConnectionManager
+import com.stenleone.rockpaperscissors.managers.network.ProfileCloudFirestoreManager
 import com.stenleone.rockpaperscissors.model.network.User
+import com.stenleone.stanleysfilm.model.entity.RequestError
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
-    private val profileCloudFirestoreManager: ProfileCloudFirestoreManager
+    private val profileCloudFirestoreManager: ProfileCloudFirestoreManager,
+    private val connectionManager: ConnectionManager
 ) : ViewModel() {
 
     val profile = MutableLiveData<User>()
-    val error = MutableLiveData<String>()
+    val error = MutableLiveData<RequestError>()
+
 
     val inProgress = MutableLiveData<Boolean>()
 
@@ -31,7 +35,12 @@ class ProfileViewModel @Inject constructor(
             name.postValue(it.name)
             inProgress.postValue(false)
         }, {
-            error.postValue(it)
+            if (connectionManager.isConnected.value == true) {
+                error.postValue(RequestError(RequestError.REQUEST_ERROR, message = it, retryAction = { getProfile() }))
+            } else {
+                error.postValue(RequestError(RequestError.CONNECTION_ERROR, message = it, retryAction = { getProfile() }))
+            }
+
             inProgress.postValue(false)
         })
     }
@@ -46,7 +55,12 @@ class ProfileViewModel @Inject constructor(
                     updateSuccess.postValue(true)
                     inProgress.postValue(false)
                 }, {
-                    error.postValue(it.message)
+                    if (connectionManager.isConnected.value == true) {
+                        error.postValue(RequestError(RequestError.REQUEST_ERROR, message = it.message, retryAction = { updateName() }))
+                    } else {
+                        error.postValue(RequestError(RequestError.CONNECTION_ERROR, message = it.message, retryAction = { updateName() }))
+                    }
+
                     inProgress.postValue(false)
                 })
             }

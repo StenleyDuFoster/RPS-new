@@ -9,6 +9,7 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="alto">#D3D3D3</color>
+    <color name="alto_error">#CD9595</color>
     <color name="rolling_stone">#8995A6</color>
 
     <color name="main_bg_white_day">#E0E5EC</color>

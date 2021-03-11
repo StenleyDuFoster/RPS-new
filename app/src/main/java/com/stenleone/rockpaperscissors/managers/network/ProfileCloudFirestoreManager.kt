@@ -1,4 +1,4 @@
-package com.stenleone.rockpaperscissors.managers
+package com.stenleone.rockpaperscissors.managers.network
 
 import android.content.Context
 import com.google.firebase.auth.FirebaseAuth

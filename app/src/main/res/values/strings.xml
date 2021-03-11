@@ -3,14 +3,16 @@
     <!--  GENERAL  -->
     <string name="app_name">rockpaperscissorsNEW</string>
     <string name="app_name_custom">Камень ножницы бумага онлайн</string>
-    <string name="app_in_market">https://play.google.com/store/apps/details?id=com.stenleone.rockpaperscissors</string>
+    <string name="app_in_market" translatable="false">https://play.google.com/store/apps/details?id=com.stenleone.rockpaperscissors</string>
+    <string name="time_format_main">EEE MMM dd HH:mm:ss zzzz yyyy</string>
     <string name="ok">Ok</string>
-    <string name="error_unknown">Неизвестная ошибка</string>
 
     <!--  LOGIN  -->
     <string name="email">Почта</string>
     <string name="password">Пароль</string>
     <string name="login_button">Ввойти или зарегестрироватся</string>
+    <string name="pass_length_error">Пароль должен иметь более 6 символов</string>
+    <string name="email_format_error">Почти должна быть в формате aaa@example.com</string>
 
     <!--  MAIN  -->
     <string name="profile">Профиль</string>
@@ -53,5 +55,11 @@
     <string name="advice">Совет</string>
     <string name="room_defendended_by_pass">Комната \"%s\" защищена паролем</string>
     <string name="log_in">Ввойти</string>
+
+    <!--  Errors  -->
+    <string name="connection_title">Проблема с интернет соединением</string>
+    <string name="connection_text">Отсутствует интернет соединение!</string>
+    <string name="retry">Повторить</string>
+    <string name="unknown_error">Неизвестная ошибка</string>
 
 </resources>

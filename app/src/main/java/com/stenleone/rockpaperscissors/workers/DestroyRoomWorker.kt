@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import com.stenleone.rockpaperscissors.managers.HostRoomManager
+import com.stenleone.rockpaperscissors.managers.network.HostRoomManager
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 

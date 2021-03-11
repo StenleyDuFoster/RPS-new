@@ -13,10 +13,12 @@ import com.stenleone.rockpaperscissors.interfaces.SimpleClickListener
 import com.stenleone.rockpaperscissors.model.network.Room
 import com.stenleone.rockpaperscissors.ui.activitys.MainActivity
 import com.stenleone.rockpaperscissors.ui.adapters.recycler.GameFindAdapter
-import com.stenleone.rockpaperscissors.ui.dialogs.InfoDialogFragment
+import com.stenleone.rockpaperscissors.ui.dialogs.info.InfoDialogFragment
 import com.stenleone.rockpaperscissors.ui.dialogs.LoadingDialogFragment
-import com.stenleone.rockpaperscissors.viewModel.ConnectToRoomViewModel
 import com.stenleone.rockpaperscissors.ui.dialogs.enterPassRoom.RoomPassDialogFragment
+import com.stenleone.rockpaperscissors.ui.dialogs.error.ErrorDialogCallBack
+import com.stenleone.rockpaperscissors.ui.dialogs.error.ErrorDialogFragment
+import com.stenleone.rockpaperscissors.ui.dialogs.info.InfoDialogCallback
 import com.stenleone.rockpaperscissors.ui.fragments.base.BaseFragment
 import com.stenleone.rockpaperscissors.ui.fragments.player.PlayerFragment
 import com.stenleone.stanleysfilm.util.extencial.throttleClicks
@@ -27,7 +29,7 @@ import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class FindRoomFragment(override var layId: Int = R.layout.fragment_find_room) : BaseFragment<FragmentFindRoomBinding>(), InfoDialogFragment.Callback {
+class FindRoomFragment(override var layId: Int = R.layout.fragment_find_room) : BaseFragment<FragmentFindRoomBinding>(), InfoDialogCallback, ErrorDialogCallBack {
 
     companion object {
         const val TAG = "FindRoomFragment"
@@ -37,6 +39,8 @@ class FindRoomFragment(override var layId: Int = R.layout.fragment_find_room) : 
     private val viewModel: FindRoomViewModel by viewModels()
     private val connectedViewModel: ConnectToRoomViewModel by viewModels()
     private var lastClickRoom: Room? = null
+
+    private var retryDialogRetryAction: (() -> Unit)? = null
 
     @Inject
     lateinit var gameFindAdapter: GameFindAdapter
@@ -105,7 +109,7 @@ class FindRoomFragment(override var layId: Int = R.layout.fragment_find_room) : 
                         lastClickRoom = item
 
                         val calendar = Calendar.getInstance()
-                        val sdf = SimpleDateFormat("EEE MMM dd HH:mm:ss zzzz yyyy")
+                        val sdf = SimpleDateFormat(getString(R.string.time_format_main))
                         calendar.time = try {
                             sdf.parse(item.date_create)
                         } catch (e: Exception) {
@@ -159,6 +163,17 @@ class FindRoomFragment(override var layId: Int = R.layout.fragment_find_room) : 
             INFO_DIALOG_OPEN_ROOM_ACTION -> {
                 goToRoom()
             }
+        }
+    }
+
+    override fun errorDialogOkClick(type: Int) {
+        ErrorDialogFragment.cancel(childFragmentManager)
+    }
+
+    override fun errorDialogRetryClick(type: Int) {
+        ErrorDialogFragment.cancel(childFragmentManager)
+        retryDialogRetryAction?.let {
+            it.invoke()
         }
     }
 }

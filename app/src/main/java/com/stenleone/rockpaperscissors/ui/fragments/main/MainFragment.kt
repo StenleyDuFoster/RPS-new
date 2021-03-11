@@ -13,7 +13,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.stenleone.rockpaperscissors.BuildConfig
 import com.stenleone.rockpaperscissors.R
 import com.stenleone.rockpaperscissors.databinding.FragmentMainBinding
-import com.stenleone.rockpaperscissors.managers.RemoteConfigManager
+import com.stenleone.rockpaperscissors.managers.config.RemoteConfigManager
 import com.stenleone.rockpaperscissors.ui.activitys.MainActivity
 import com.stenleone.rockpaperscissors.ui.activitys.RegisterActivity
 import com.stenleone.rockpaperscissors.ui.dialogs.GameChoserDialogFragment
@@ -120,7 +120,7 @@ class MainFragment(override var layId: Int = R.layout.fragment_main) : BaseFragm
                             val reviewInfo = request.result
                             manager.launchReviewFlow(requireActivity(), reviewInfo).addOnSuccessListener { }
                         } else {
-                            Toast.makeText(requireContext(), getString(R.string.error_unknown), Toast.LENGTH_SHORT).show()
+                            Toast.makeText(requireContext(), getString(R.string.unknown_error), Toast.LENGTH_SHORT).show()
                         }
                     }
                 }, lifecycleScope

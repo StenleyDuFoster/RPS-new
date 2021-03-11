@@ -1,4 +1,4 @@
-package com.stenleone.rockpaperscissors.managers
+package com.stenleone.rockpaperscissors.managers.config
 
 import android.content.Context
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig

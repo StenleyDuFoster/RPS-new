@@ -1,4 +1,4 @@
-package com.stenleone.rockpaperscissors.managers
+package com.stenleone.rockpaperscissors.managers.network
 
 import com.google.firebase.database.FirebaseDatabase
 import javax.inject.Inject

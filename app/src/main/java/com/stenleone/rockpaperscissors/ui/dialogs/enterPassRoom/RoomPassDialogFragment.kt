@@ -13,7 +13,7 @@ import com.stenleone.rockpaperscissors.ui.dialogs.LoadingDialogFragment
 import com.stenleone.rockpaperscissors.ui.dialogs.base.BaseDialogFragment
 import com.stenleone.rockpaperscissors.ui.fragments.findRoom.FindRoomFragment
 import com.stenleone.rockpaperscissors.ui.fragments.player.PlayerFragment
-import com.stenleone.rockpaperscissors.viewModel.ConnectToRoomViewModel
+import com.stenleone.rockpaperscissors.ui.fragments.findRoom.ConnectToRoomViewModel
 import com.stenleone.stanleysfilm.util.extencial.throttleClicks
 import dagger.hilt.android.AndroidEntryPoint
 

@@ -4,8 +4,8 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.stenleone.rockpaperscissors.managers.HostRoomManager
-import com.stenleone.rockpaperscissors.managers.ProfileCloudFirestoreManager
+import com.stenleone.rockpaperscissors.managers.network.HostRoomManager
+import com.stenleone.rockpaperscissors.managers.network.ProfileCloudFirestoreManager
 import com.stenleone.rockpaperscissors.model.network.GameUser
 import com.stenleone.rockpaperscissors.model.network.Room
 import com.stenleone.rockpaperscissors.utils.constants.RPS

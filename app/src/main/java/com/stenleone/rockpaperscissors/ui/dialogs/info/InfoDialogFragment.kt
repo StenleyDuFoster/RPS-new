@@ -1,4 +1,4 @@
-package com.stenleone.rockpaperscissors.ui.dialogs
+package com.stenleone.rockpaperscissors.ui.dialogs.info
 
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
@@ -57,8 +57,8 @@ class InfoDialogFragment(override var layId: Int = R.layout.dialog_info) : BaseD
             okButton.throttleClicks(
                 {
                     val action = arguments?.getInt(WITH_ACTION)
-                    if (action != null && action != 0 && parentFragment is Callback)  {
-                        (parentFragment as Callback).infoDialogOkClick(action)
+                    if (action != null && action != 0 && parentFragment is InfoDialogCallback)  {
+                        (parentFragment as InfoDialogCallback).infoDialogOkClick(action)
                     }
                     dialog?.dismiss()
                 }, lifecycleScope
@@ -66,8 +66,6 @@ class InfoDialogFragment(override var layId: Int = R.layout.dialog_info) : BaseD
         }
     }
 
-    interface Callback {
-        fun infoDialogOkClick(type: Int)
-    }
+
 
 }
