@@ -92,9 +92,7 @@ class ErrorDialogFragment(override var layId: Int = R.layout.dialog_error) : Bas
             okButton.throttleClicks(
                 {
                     arguments?.getInt(ACTION)?.let { action ->
-                        if (parentFragment is ErrorDialogCallBack) {
-                            (parentFragment as ErrorDialogCallBack).errorDialogOkClick(action)
-                        }
+                        (parentFragment as? ErrorDialogCallBack?)?.errorDialogOkClick(action)
                     }
                     arguments?.getBoolean(CRITICAL)?.let {
                         if (!it) {
@@ -106,9 +104,7 @@ class ErrorDialogFragment(override var layId: Int = R.layout.dialog_error) : Bas
             retryButton.throttleClicks(
                 {
                     arguments?.getInt(ACTION)?.let { action ->
-                        if (parentFragment is ErrorDialogCallBack) {
-                            (parentFragment as ErrorDialogCallBack).errorDialogRetryClick(action)
-                        }
+                        (parentFragment as? ErrorDialogCallBack?)?.errorDialogRetryClick(action)
                     }
                     arguments?.getBoolean(CRITICAL)?.let {
                         if (!it) {

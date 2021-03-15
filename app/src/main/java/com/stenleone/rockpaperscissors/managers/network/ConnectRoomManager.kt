@@ -4,12 +4,13 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.stenleone.rockpaperscissors.managers.network.base.BaseNetworkManager
 import com.stenleone.rockpaperscissors.model.network.GameUser
 import com.stenleone.rockpaperscissors.model.network.Room
 import com.stenleone.rockpaperscissors.model.network.User
 import javax.inject.Inject
 
-class ConnectRoomManager @Inject constructor() {
+class ConnectRoomManager @Inject constructor() : BaseNetworkManager() {
 
     companion object {
         private const val ROOM_DB = "rooms-new"

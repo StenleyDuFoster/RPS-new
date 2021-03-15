@@ -6,13 +6,21 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.firebase.firestore.FirebaseFirestore
+import com.stenleone.rockpaperscissors.managers.network.base.BaseNetworkManager
+import com.stenleone.rockpaperscissors.model.general.DataState
 import com.stenleone.rockpaperscissors.model.network.User
+import com.stenleone.stanleysfilm.model.entity.RequestError
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers.Main
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+import kotlin.coroutines.suspendCoroutine
 
 @Singleton
-class ProfileCloudFirestoreManager @Inject constructor(@ApplicationContext private val context: Context) {
+class ProfileCloudFirestoreManager @Inject constructor(@ApplicationContext private val context: Context) : BaseNetworkManager() {
 
     companion object {
         const val USERS = "users"
@@ -94,18 +102,26 @@ class ProfileCloudFirestoreManager @Inject constructor(@ApplicationContext priva
         }
     }
 
-    fun updateUser(user: User, success: (FirebaseUser) -> Unit, failure: (Exception) -> Unit) {
-        auth.currentUser?.let {
-            it?.email?.let { email ->
-                store.collection(USERS).document(email).set(user)
-                    .addOnCompleteListener {
-                        if (it.isSuccessful) {
-                            auth.currentUser?.let { it -> success(it) }
+    suspend fun updateUser(user: User): DataState<FirebaseUser> {
+        return suspendCoroutine { continuation ->
+            CoroutineScope(Main + continuation.context).launch {
+                withTimeout(timeOut, {
+                    auth.currentUser?.let {
+                        it?.email?.let { email ->
+                            store.collection(USERS).document(email).set(user)
+                                .addOnCompleteListener {
+                                    if (it.isSuccessful) {
+                                        auth.currentUser?.let {
+                                            continuation.resume(DataState.Success(it))
+                                        }
+                                    }
+                                }
+                                .addOnFailureListener {
+                                    continuation.resume(DataState.Error(RequestError(RequestError.REQUEST_ERROR, message = it.message)))
+                                }
                         }
                     }
-                    .addOnFailureListener {
-                        failure(it)
-                    }
+                })
             }
         }
     }
