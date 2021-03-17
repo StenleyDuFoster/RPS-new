@@ -16,256 +16,246 @@
     <!--        android:layout_height="match_parent"-->
     <!--        android:background="@color/alto">-->
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/rootView"
+
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:animateLayoutChanges="true"
-        android:background="@color/alto"
-        tools:context=".ui.activitys.MainActivity">
+        android:background="@color/alto">
 
-        <soup.neumorphism.NeumorphCardView
-            android:id="@+id/backButton"
-            style="@style/CustomShapeAppearanceRounded"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:neumorph_shapeType="flat">
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="-1dp"
+            android:translationZ="-10dp">
 
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/ic_back" />
-
-        </soup.neumorphism.NeumorphCardView>
-
-        <TextView
-            android:id="@+id/title"
-            style="@style/TextViewBig"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="@string/create_room"
-            android:textAllCaps="false"
-            android:textColor="@color/black"
-            app:layout_constraintBottom_toBottomOf="@+id/backButton"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/backButton"
-            app:layout_constraintTop_toTopOf="@+id/backButton" />
-
-        <soup.neumorphism.NeumorphCardView
-            android:id="@+id/name"
-            style="@style/neumorphism"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/backButton"
-            app:neumorph_shapeType="pressed">
-
-            <EditText
-                android:id="@+id/nameEdit"
-                style="@style/EditTextDefault"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:hint="@string/name_room"
-                android:inputType="textEmailAddress"
-                android:text="@={viewModel.email}" />
-
-        </soup.neumorphism.NeumorphCardView>
-
-        <TextView
-            android:id="@+id/textAddPassword"
-            style="@style/TextViewStandard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="30dp"
-            android:fontFamily="@font/rostov"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="@string/save_by_password"
-            android:textAllCaps="false"
-            android:textColor="@color/black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/name" />
-
-        <CheckBox
-            android:id="@+id/addPassCheckBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/textAddPassword"
-            app:layout_constraintStart_toEndOf="@+id/textAddPassword"
-            app:layout_constraintTop_toTopOf="@+id/textAddPassword" />
-
-        <soup.neumorphism.NeumorphCardView
-            android:id="@+id/pass"
-            style="@style/neumorphism"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textAddPassword"
-            app:neumorph_shapeType="pressed">
-
-            <EditText
-                android:id="@+id/passEdit"
-                style="@style/EditTextDefault"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:hint="@string/password"
-                android:inputType="textEmailAddress"
-                android:text="@={viewModel.email}" />
-
-        </soup.neumorphism.NeumorphCardView>
-
-        <TextView
-            android:id="@+id/textPlayerCount"
-            style="@style/TextViewStandard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="30dp"
-            android:fontFamily="@font/rostov"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="@string/player_count"
-            android:textAllCaps="false"
-            android:textColor="@color/black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/pass" />
-
-        <Spinner
-            style="@style/AppTheme"
-            android:id="@+id/playerCountSpinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/textPlayerCount"
-            app:layout_constraintStart_toEndOf="@+id/textPlayerCount"
-            app:layout_constraintTop_toTopOf="@+id/textPlayerCount" />
-
-        <TextView
-            android:id="@+id/textGameCount"
-            style="@style/TextViewStandard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="30dp"
-            android:fontFamily="@font/rostov"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="@string/game_count"
-            android:textAllCaps="false"
-            android:textColor="@color/black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textPlayerCount" />
-
-        <Spinner
-            style="@style/AppTheme"
-            android:id="@+id/playerGameSpinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/textGameCount"
-            app:layout_constraintStart_toEndOf="@+id/textPlayerCount"
-            app:layout_constraintTop_toBottomOf="@+id/textPlayerCount" />
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/online"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:visibility="visible"
-            app:layout_constraintEnd_toEndOf="@+id/name"
-            app:layout_constraintStart_toEndOf="@+id/offline"
-            app:layout_constraintTop_toTopOf="@+id/offline"
-            app:strokeColor="@color/white"
-            app:strokeWidth="1dp">
-
-
-            <TextView
-                android:id="@+id/onlineText"
-                style="@style/TextViewStandard"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/rootView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:background="@drawable/button_transition"
-                android:gravity="center"
-                android:text="@string/online"
-                android:textAllCaps="false"
-                android:textColor="@color/black" />
+                android:animateLayoutChanges="true"
+                android:clipToPadding="false"
+                android:paddingTop="110dp"
+                tools:context=".ui.activitys.MainActivity">
 
-        </com.google.android.material.card.MaterialCardView>
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/offline"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            app:cardElevation="0dp"
-            app:layout_constraintEnd_toStartOf="@+id/online"
-            app:layout_constraintStart_toStartOf="@+id/name"
-            app:layout_constraintTop_toBottomOf="@+id/textGameCount"
-            app:strokeColor="@color/white"
-            app:strokeWidth="1dp">
+                <soup.neumorphism.NeumorphCardView
+                    android:id="@+id/name"
+                    style="@style/neumorphism"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:neumorph_shapeType="pressed">
 
-            <TextView
-                android:id="@+id/offlineText"
-                style="@style/TextViewStandard"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:background="@drawable/button_transition"
-                android:gravity="center"
-                android:text="@string/offline"
-                android:textAllCaps="false"
-                android:textColor="@color/black" />
+                    <EditText
+                        android:id="@+id/nameEdit"
+                        style="@style/EditTextDefault"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:hint="@string/name_room"
+                        android:inputType="textEmailAddress"
+                        android:text="@={viewModel.email}" />
 
-        </com.google.android.material.card.MaterialCardView>
+                </soup.neumorphism.NeumorphCardView>
 
-        <soup.neumorphism.NeumorphCardView
-            android:id="@+id/createButton"
-            style="@style/CustomShapeAppearanceOval"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:clickable="true"
-            android:focusable="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+                <TextView
+                    android:id="@+id/textAddPassword"
+                    style="@style/TextViewStandard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="30dp"
+                    android:fontFamily="@font/rostov"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="@string/save_by_password"
+                    android:textAllCaps="false"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/name" />
 
-            <TextView
-                style="@style/TextViewStandard"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"
-                android:fontFamily="@font/rostov"
-                android:gravity="center"
-                android:padding="10dp"
-                android:text="@string/create"
-                android:textAllCaps="false"
-                android:textColor="@color/black" />
+                <CheckBox
+                    android:id="@+id/addPassCheckBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@+id/textAddPassword"
+                    app:layout_constraintStart_toEndOf="@+id/textAddPassword"
+                    app:layout_constraintTop_toTopOf="@+id/textAddPassword" />
 
-        </soup.neumorphism.NeumorphCardView>
+                <soup.neumorphism.NeumorphCardView
+                    android:id="@+id/pass"
+                    style="@style/neumorphism"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textAddPassword"
+                    app:neumorph_shapeType="pressed">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-    <!--    </androidx.core.widget.NestedScrollView>-->
+                    <EditText
+                        android:id="@+id/passEdit"
+                        style="@style/EditTextDefault"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:hint="@string/password"
+                        android:inputType="textEmailAddress"
+                        android:text="@={viewModel.email}" />
+
+                </soup.neumorphism.NeumorphCardView>
+
+                <TextView
+                    android:id="@+id/textPlayerCount"
+                    style="@style/TextViewStandard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="30dp"
+                    android:fontFamily="@font/rostov"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="@string/player_count"
+                    android:textAllCaps="false"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/pass" />
+
+                <Spinner
+                    android:id="@+id/playerCountSpinner"
+                    style="@style/AppTheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@+id/textPlayerCount"
+                    app:layout_constraintStart_toEndOf="@+id/textPlayerCount"
+                    app:layout_constraintTop_toTopOf="@+id/textPlayerCount" />
+
+                <TextView
+                    android:id="@+id/textGameCount"
+                    style="@style/TextViewStandard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="30dp"
+                    android:fontFamily="@font/rostov"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="@string/game_count"
+                    android:textAllCaps="false"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textPlayerCount" />
+
+                <Spinner
+                    android:id="@+id/playerGameSpinner"
+                    style="@style/AppTheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@+id/textGameCount"
+                    app:layout_constraintStart_toEndOf="@+id/textPlayerCount"
+                    app:layout_constraintTop_toBottomOf="@+id/textPlayerCount" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/online"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:visibility="visible"
+                    app:layout_constraintEnd_toEndOf="@+id/name"
+                    app:layout_constraintStart_toEndOf="@+id/offline"
+                    app:layout_constraintTop_toTopOf="@+id/offline"
+                    app:strokeColor="@color/white"
+                    app:strokeWidth="1dp">
+
+
+                    <TextView
+                        android:id="@+id/onlineText"
+                        style="@style/TextViewStandard"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:background="@drawable/button_transition"
+                        android:gravity="center"
+                        android:text="@string/online"
+                        android:textAllCaps="false"
+                        android:textColor="@color/black" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/offline"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    app:cardElevation="0dp"
+                    app:layout_constraintEnd_toStartOf="@+id/online"
+                    app:layout_constraintStart_toStartOf="@+id/name"
+                    app:layout_constraintTop_toBottomOf="@+id/textGameCount"
+                    app:strokeColor="@color/white"
+                    app:strokeWidth="1dp">
+
+                    <TextView
+                        android:id="@+id/offlineText"
+                        style="@style/TextViewStandard"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:background="@drawable/button_transition"
+                        android:gravity="center"
+                        android:text="@string/offline"
+                        android:textAllCaps="false"
+                        android:textColor="@color/black" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <soup.neumorphism.NeumorphCardView
+                    android:id="@+id/createButton"
+                    style="@style/CustomShapeAppearanceOval"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/offline">
+
+                    <TextView
+                        style="@style/TextViewStandard"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:fontFamily="@font/rostov"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="@string/create"
+                        android:textAllCaps="false"
+                        android:textColor="@color/black" />
+
+                </soup.neumorphism.NeumorphCardView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.core.widget.NestedScrollView>
+
+        <include
+            android:id="@+id/toolBar"
+            layout="@layout/tool_bar"
+            app:title="@{@string/create_room}" />
+
+    </FrameLayout>
 </layout>

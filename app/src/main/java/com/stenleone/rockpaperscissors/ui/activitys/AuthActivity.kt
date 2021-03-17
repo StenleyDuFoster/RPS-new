@@ -8,7 +8,7 @@ import com.stenleone.rockpaperscissors.ui.fragments.signInOrRegister.SignInOrReg
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class RegisterActivity(override var layId: Int = R.layout.activity_register) : BaseActivity<ActivityRegisterBinding>() {
+class AuthActivity(override var layId: Int = R.layout.activity_register) : BaseActivity<ActivityRegisterBinding>() {
 
     override fun setup(savedInstanceState: Bundle?) {
 

@@ -16,6 +16,7 @@ import com.stenleone.rockpaperscissors.ui.activitys.MainActivity
 import com.stenleone.rockpaperscissors.ui.fragments.base.BaseFragment
 import com.stenleone.rockpaperscissors.ui.fragments.hostPlayer.HostPlayerFragment
 import com.stenleone.rockpaperscissors.ui.fragments.singleRoom.SinglePlayerFragment
+import com.stenleone.rockpaperscissors.utils.TopMenuController
 import com.stenleone.stanleysfilm.util.extencial.throttleClicks
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
@@ -35,6 +36,7 @@ class HostCreateRoomFragment(override var layId: Int = R.layout.fragment_create_
 
         setupView()
         setupClicks()
+//        TopMenuController(binding.toolBar)
     }
 
     private fun setupView() {
@@ -71,7 +73,7 @@ class HostCreateRoomFragment(override var layId: Int = R.layout.fragment_create_
 
     private fun setupClicks() {
         binding.apply {
-            backButton.throttleClicks(
+            toolBar.backButton.throttleClicks(
                 {
                     requireActivity().onBackPressed()
                 }, lifecycleScope

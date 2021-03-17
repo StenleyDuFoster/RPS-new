@@ -4,7 +4,7 @@
     <string name="app_name">rockpaperscissorsNEW</string>
     <string name="app_name_custom">Камень ножницы бумага онлайн</string>
     <string name="app_in_market" translatable="false">https://play.google.com/store/apps/details?id=com.stenleone.rockpaperscissors</string>
-    <string name="time_format_main">EEE MMM dd HH:mm:ss zzzz yyyy</string>
+    <string name="time_format_main">EEE MM dd kk:mm:ss zzzz yyyy</string>
     <string name="ok">Ok</string>
 
     <!--  LOGIN  -->

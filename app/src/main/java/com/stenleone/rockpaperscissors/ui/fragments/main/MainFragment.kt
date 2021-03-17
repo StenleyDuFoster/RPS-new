@@ -15,7 +15,7 @@ import com.stenleone.rockpaperscissors.R
 import com.stenleone.rockpaperscissors.databinding.FragmentMainBinding
 import com.stenleone.rockpaperscissors.managers.config.RemoteConfigManager
 import com.stenleone.rockpaperscissors.ui.activitys.MainActivity
-import com.stenleone.rockpaperscissors.ui.activitys.RegisterActivity
+import com.stenleone.rockpaperscissors.ui.activitys.AuthActivity
 import com.stenleone.rockpaperscissors.ui.dialogs.GameChoserDialogFragment
 import com.stenleone.rockpaperscissors.ui.fragments.base.BaseFragment
 import com.stenleone.rockpaperscissors.ui.fragments.profile.ProfileFragment
@@ -93,7 +93,7 @@ class MainFragment(override var layId: Int = R.layout.fragment_main) : BaseFragm
             logOut.throttleClicks(
                 {
                     FirebaseAuth.getInstance().signOut()
-                    startActivity(Intent(requireContext(), RegisterActivity::class.java))
+                    startActivity(Intent(requireContext(), AuthActivity::class.java))
                     requireActivity().finish()
                 }, lifecycleScope
             )

@@ -15,235 +15,24 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/rootView"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/alto">
+        android:background="@color/alto"
+        android:orientation="vertical">
 
-        <soup.neumorphism.NeumorphCardView
-            android:id="@+id/rootLay"
-            style="@style/neumorphism"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:neumorph_shapeType="pressed" />
-
-        <soup.neumorphism.NeumorphCardView
-            android:id="@+id/imageCard"
-            style="@style/neumorphism"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginEnd="50dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:neumorph_shapeType="flat">
-
-            <ImageView
-                android:id="@+id/profileImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:load_image="@{user.image}" />
-
-        </soup.neumorphism.NeumorphCardView>
-
-        <soup.neumorphism.NeumorphCardView
-            android:id="@+id/cardLay"
-            style="@style/CustomShapeAppearanceRounded"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:layout_marginEnd="50dp"
-            app:layout_constraintBottom_toTopOf="@+id/saveButton"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/backButton"
-            app:neumorph_shapeType="flat">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <soup.neumorphism.NeumorphCardView
-                    android:id="@+id/email"
-                    style="@style/neumorphism"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
-                    app:layout_constraintBottom_toTopOf="@+id/login"
-                    app:layout_constraintEnd_toEndOf="@+id/cardLay"
-                    app:layout_constraintStart_toStartOf="@+id/cardLay"
-                    app:layout_constraintTop_toTopOf="@+id/cardLay"
-                    app:neumorph_shapeType="pressed">
-
-                    <TextView
-                        android:id="@+id/emailEdit"
-                        style="@style/TextViewStandard"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:hint="@string/email"
-                        android:inputType="textEmailAddress"
-                        android:padding="5dp"
-                        android:text="@{user.email}" />
-
-                </soup.neumorphism.NeumorphCardView>
-
-                <soup.neumorphism.NeumorphCardView
-                    android:id="@+id/name"
-                    style="@style/neumorphism"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/cardLay"
-                    app:layout_constraintEnd_toEndOf="@+id/cardLay"
-                    app:layout_constraintStart_toStartOf="@+id/cardLay"
-                    app:layout_constraintTop_toBottomOf="@+id/email"
-                    app:neumorph_shapeType="pressed">
-
-                    <EditText
-                        android:id="@+id/nameEdit"
-                        style="@style/EditTextDefault"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:hint="@string/name"
-                        android:inputType="text"
-                        android:text="@={viewModel.name}" />
-
-                </soup.neumorphism.NeumorphCardView>
-
-                <soup.neumorphism.NeumorphCardView
-                    android:id="@+id/win"
-                    style="@style/neumorphism"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/cardLay"
-                    app:layout_constraintEnd_toEndOf="@+id/cardLay"
-                    app:layout_constraintStart_toStartOf="@+id/cardLay"
-                    app:layout_constraintTop_toBottomOf="@+id/email"
-                    app:neumorph_shapeType="pressed">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            style="@style/TextViewStandard"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginEnd="10dp"
-                            android:inputType="textEmailAddress"
-                            android:padding="5dp"
-                            android:text="@string/win" />
-
-                        <TextView
-                            style="@style/TextViewStandard"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginEnd="10dp"
-                            android:hint="0"
-                            android:inputType="textEmailAddress"
-                            android:padding="5dp"
-                            android:text="@{String.valueOf(user.win)}" />
-
-                    </LinearLayout>
-                </soup.neumorphism.NeumorphCardView>
-
-                <soup.neumorphism.NeumorphCardView
-                    android:id="@+id/lose"
-                    style="@style/neumorphism"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/cardLay"
-                    app:layout_constraintEnd_toEndOf="@+id/cardLay"
-                    app:layout_constraintStart_toStartOf="@+id/cardLay"
-                    app:layout_constraintTop_toBottomOf="@+id/email"
-                    app:neumorph_shapeType="pressed">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            style="@style/TextViewStandard"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginEnd="10dp"
-                            android:inputType="textEmailAddress"
-                            android:padding="5dp"
-                            android:text="@string/lose" />
-
-                        <TextView
-                            style="@style/TextViewStandard"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginEnd="10dp"
-                            android:hint="0"
-                            android:inputType="textEmailAddress"
-                            android:padding="5dp"
-                            android:text="@{String.valueOf(user.lose)}" />
-
-                    </LinearLayout>
-                </soup.neumorphism.NeumorphCardView>
-
-            </LinearLayout>
-        </soup.neumorphism.NeumorphCardView>
-
-        <soup.neumorphism.NeumorphCardView
-            android:id="@+id/saveButton"
-            style="@style/CustomShapeAppearanceRounded"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:layout_marginEnd="50dp"
-            android:layout_marginBottom="50dp"
-            app:layout_constraintBottom_toBottomOf="@+id/rootLay"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:neumorph_shapeType="flat">
-
-            <TextView
-                style="@style/TextViewStandard"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="@string/save" />
-
-        </soup.neumorphism.NeumorphCardView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
         <soup.neumorphism.NeumorphCardView
             android:id="@+id/backButton"
             style="@style/CustomShapeAppearanceRounded"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             app:neumorph_shapeType="flat">
 
             <ImageView
@@ -253,5 +42,249 @@
 
         </soup.neumorphism.NeumorphCardView>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            style="@style/TextViewStandard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:inputType="textEmailAddress"
+            android:padding="5dp"
+            android:text="@string/profile" />
+
+    </LinearLayout>
+
+        <soup.neumorphism.NeumorphCardView
+            android:id="@+id/rootLay"
+            style="@style/neumorphism"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:neumorph_shapeType="pressed">
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/rootView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <soup.neumorphism.NeumorphCardView
+                        android:id="@+id/imageCard"
+                        style="@style/neumorphism"
+                        android:visibility="gone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="50dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="50dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:neumorph_shapeType="flat">
+
+                        <ImageView
+                            android:id="@+id/profileImage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:load_image="@{user.image}" />
+
+                    </soup.neumorphism.NeumorphCardView>
+
+                    <soup.neumorphism.NeumorphCardView
+                        android:id="@+id/cardLay"
+                        style="@style/CustomShapeAppearanceRounded"
+                        android:layout_width="0dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="50dp"
+                        android:layout_marginEnd="50dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/imageCard"
+                        app:neumorph_shapeType="flat">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <soup.neumorphism.NeumorphCardView
+                                android:id="@+id/email"
+                                style="@style/neumorphism"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginEnd="20dp"
+                                app:layout_constraintBottom_toTopOf="@+id/login"
+                                app:layout_constraintEnd_toEndOf="@+id/cardLay"
+                                app:layout_constraintStart_toStartOf="@+id/cardLay"
+                                app:layout_constraintTop_toTopOf="@+id/cardLay"
+                                app:neumorph_shapeType="pressed">
+
+                                <TextView
+                                    android:id="@+id/emailEdit"
+                                    style="@style/TextViewStandard"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="10dp"
+                                    android:layout_marginEnd="10dp"
+                                    android:hint="@string/email"
+                                    android:inputType="textEmailAddress"
+                                    android:padding="5dp"
+                                    android:text="@{user.email}" />
+
+                            </soup.neumorphism.NeumorphCardView>
+
+                            <soup.neumorphism.NeumorphCardView
+                                android:id="@+id/name"
+                                style="@style/neumorphism"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginEnd="20dp"
+                                app:layout_constraintBottom_toBottomOf="@+id/cardLay"
+                                app:layout_constraintEnd_toEndOf="@+id/cardLay"
+                                app:layout_constraintStart_toStartOf="@+id/cardLay"
+                                app:layout_constraintTop_toBottomOf="@+id/email"
+                                app:neumorph_shapeType="pressed">
+
+                                <EditText
+                                    android:id="@+id/nameEdit"
+                                    style="@style/EditTextDefault"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="10dp"
+                                    android:layout_marginEnd="10dp"
+                                    android:hint="@string/name"
+                                    android:inputType="text"
+                                    android:text="@={viewModel.name}" />
+
+                            </soup.neumorphism.NeumorphCardView>
+
+                            <soup.neumorphism.NeumorphCardView
+                                android:id="@+id/win"
+                                style="@style/neumorphism"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginEnd="20dp"
+                                app:layout_constraintBottom_toBottomOf="@+id/cardLay"
+                                app:layout_constraintEnd_toEndOf="@+id/cardLay"
+                                app:layout_constraintStart_toStartOf="@+id/cardLay"
+                                app:layout_constraintTop_toBottomOf="@+id/email"
+                                app:neumorph_shapeType="pressed">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        style="@style/TextViewStandard"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="10dp"
+                                        android:layout_marginEnd="10dp"
+                                        android:inputType="textEmailAddress"
+                                        android:padding="5dp"
+                                        android:text="@string/win" />
+
+                                    <TextView
+                                        style="@style/TextViewStandard"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="10dp"
+                                        android:layout_marginEnd="10dp"
+                                        android:hint="0"
+                                        android:inputType="textEmailAddress"
+                                        android:padding="5dp"
+                                        android:text="@{String.valueOf(user.win)}" />
+
+                                </LinearLayout>
+                            </soup.neumorphism.NeumorphCardView>
+
+                            <soup.neumorphism.NeumorphCardView
+                                android:id="@+id/lose"
+                                style="@style/neumorphism"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginEnd="20dp"
+                                app:layout_constraintBottom_toBottomOf="@+id/cardLay"
+                                app:layout_constraintEnd_toEndOf="@+id/cardLay"
+                                app:layout_constraintStart_toStartOf="@+id/cardLay"
+                                app:layout_constraintTop_toBottomOf="@+id/email"
+                                app:neumorph_shapeType="pressed">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        style="@style/TextViewStandard"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="10dp"
+                                        android:layout_marginEnd="10dp"
+                                        android:inputType="textEmailAddress"
+                                        android:padding="5dp"
+                                        android:text="@string/lose" />
+
+                                    <TextView
+                                        style="@style/TextViewStandard"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="10dp"
+                                        android:layout_marginEnd="10dp"
+                                        android:hint="0"
+                                        android:inputType="textEmailAddress"
+                                        android:padding="5dp"
+                                        android:text="@{String.valueOf(user.lose)}" />
+
+                                </LinearLayout>
+                            </soup.neumorphism.NeumorphCardView>
+
+                        </LinearLayout>
+                    </soup.neumorphism.NeumorphCardView>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.core.widget.NestedScrollView>
+
+
+        </soup.neumorphism.NeumorphCardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <soup.neumorphism.NeumorphCardView
+                android:id="@+id/saveButton"
+                style="@style/CustomShapeAppearanceRounded"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                app:neumorph_shapeType="flat">
+
+                <TextView
+                    style="@style/TextViewStandard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="@string/save" />
+
+            </soup.neumorphism.NeumorphCardView>
+
+        </LinearLayout>
+    </LinearLayout>
 </layout>

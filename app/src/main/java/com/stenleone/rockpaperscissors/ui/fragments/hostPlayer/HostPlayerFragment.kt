@@ -1,5 +1,6 @@
 package com.stenleone.rockpaperscissors.ui.fragments.hostPlayer
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.widget.Toast
 import androidx.fragment.app.viewModels
@@ -16,6 +17,7 @@ import com.stenleone.rockpaperscissors.ui.adapters.recycler.GamersAdapter
 import com.stenleone.rockpaperscissors.ui.fragments.base.BaseFragment
 import com.stenleone.rockpaperscissors.utils.constants.RPS
 import com.stenleone.rockpaperscissors.workers.DestroyRoomWorker
+import com.stenleone.stanleysfilm.util.extencial.getOrientation
 import com.stenleone.stanleysfilm.util.extencial.throttleClicks
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.TimeUnit
@@ -43,9 +45,14 @@ class HostPlayerFragment(override var layId: Int = R.layout.fragment_player) : B
             arguments?.getParcelable<Room>(BaseActivity.DATA)?.let {
                 setupRoom(it)
                 binding.apply {
-                    gamerAdapter.size = it.playerCount
+                    gamerAdapter.size = it.playerCount - 1
                     title.text = it.name
-                    gameRecycler.layoutManager = GridLayoutManager(requireContext(), 3)
+                    val spanCount = if(requireActivity().getOrientation() == Configuration.ORIENTATION_PORTRAIT) {
+                        3
+                    } else {
+                        6
+                    }
+                    gameRecycler.layoutManager = GridLayoutManager(requireContext(), spanCount)
                     gameRecycler.adapter = gamerAdapter
                 }
             }

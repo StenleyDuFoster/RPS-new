@@ -15,5 +15,6 @@
     <color name="main_bg_white_day">#E0E5EC</color>
     <color name="dark_shadow_day">#A3B1C6</color>
     <color name="transparent_80">#80000000</color>
+    <color name="transparent">#00000000</color>
 
 </resources>

@@ -1,11 +1,15 @@
 package com.stenleone.rockpaperscissors.managers.network
 
 import android.content.Context
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.OnFailureListener
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Source
 import com.stenleone.rockpaperscissors.managers.network.base.BaseNetworkManager
 import com.stenleone.rockpaperscissors.model.general.DataState
 import com.stenleone.rockpaperscissors.model.network.User
@@ -13,8 +17,12 @@ import com.stenleone.stanleysfilm.model.entity.RequestError
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.internal.resumeCancellableWith
+import kotlinx.coroutines.tasks.await
+import java.util.concurrent.Executor
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlin.concurrent.timerTask
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
@@ -103,25 +111,36 @@ class ProfileCloudFirestoreManager @Inject constructor(@ApplicationContext priva
     }
 
     suspend fun updateUser(user: User): DataState<FirebaseUser> {
-        return suspendCoroutine { continuation ->
+        return suspendCancellableCoroutine { continuation ->
             CoroutineScope(Main + continuation.context).launch {
-                withTimeout(timeOut, {
-                    auth.currentUser?.let {
-                        it?.email?.let { email ->
-                            store.collection(USERS).document(email).set(user)
-                                .addOnCompleteListener {
-                                    if (it.isSuccessful) {
-                                        auth.currentUser?.let {
-                                            continuation.resume(DataState.Success(it))
-                                        }
+                auth.currentUser?.let {
+                    it?.email?.let { email ->
+                        var task: Task<Void>? = store.collection(USERS).document(email).set(user)
+                        val completeListener = OnCompleteListener<Void> {
+                            if (it.isSuccessful) {
+                                auth.currentUser?.let {
+                                    if (continuation.isActive) {
+                                        continuation.resume(DataState.Success(it))
+                                        continuation.cancel()
                                     }
                                 }
-                                .addOnFailureListener {
-                                    continuation.resume(DataState.Error(RequestError(RequestError.REQUEST_ERROR, message = it.message)))
-                                }
+                            }
+                        }
+                        task?.addOnCompleteListener(completeListener)
+                        val failureListener = OnFailureListener {
+                            if (continuation.isActive) {
+                                continuation.resume(DataState.Error(RequestError(RequestError.REQUEST_ERROR, message = it.message)))
+                                continuation.cancel()
+                            }
+                        }
+                        task?.addOnFailureListener(failureListener)
+                        delay(timeOut)
+                        if (continuation.isActive) {
+                            continuation.resume(DataState.Error(RequestError(RequestError.REQUEST_ERROR, message = "request time out")))
+                            continuation.cancel()
                         }
                     }
-                })
+                }
             }
         }
     }

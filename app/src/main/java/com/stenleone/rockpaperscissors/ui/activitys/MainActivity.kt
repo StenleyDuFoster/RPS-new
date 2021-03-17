@@ -2,8 +2,6 @@ package com.stenleone.rockpaperscissors.ui.activitys
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.stenleone.rockpaperscissors.R
 import com.stenleone.rockpaperscissors.databinding.ActivityMainBinding
@@ -22,7 +20,7 @@ class MainActivity(override var layId: Int = R.layout.activity_main) : BaseActiv
 
     private fun checkAuth() {
         if (FirebaseAuth.getInstance().currentUser == null) {
-            startActivity(Intent(this, RegisterActivity::class.java))
+            startActivity(Intent(this, AuthActivity::class.java))
             finish()
         }
     }
