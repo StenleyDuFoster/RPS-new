@@ -1,4 +1,4 @@
-package com.stenleone.rockpaperscissors.managers.network
+package com.stenleone.rockpaperscissors.managers.network.fireStore
 
 import android.content.Context
 import com.google.android.gms.tasks.OnCompleteListener
@@ -9,7 +9,6 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Source
 import com.stenleone.rockpaperscissors.managers.network.base.BaseNetworkManager
 import com.stenleone.rockpaperscissors.model.general.DataState
 import com.stenleone.rockpaperscissors.model.network.User
@@ -17,15 +16,9 @@ import com.stenleone.stanleysfilm.model.entity.RequestError
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.Main
-import kotlinx.coroutines.internal.resumeCancellableWith
-import kotlinx.coroutines.tasks.await
-import java.util.concurrent.Executor
 import javax.inject.Inject
 import javax.inject.Singleton
-import kotlin.concurrent.timerTask
 import kotlin.coroutines.resume
-import kotlin.coroutines.resumeWithException
-import kotlin.coroutines.suspendCoroutine
 
 @Singleton
 class ProfileCloudFirestoreManager @Inject constructor(@ApplicationContext private val context: Context) : BaseNetworkManager() {

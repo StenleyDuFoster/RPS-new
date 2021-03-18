@@ -10,16 +10,17 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.work.*
 import com.stenleone.rockpaperscissors.R
 import com.stenleone.rockpaperscissors.databinding.FragmentPlayerBinding
-import com.stenleone.rockpaperscissors.model.network.GameUser
 import com.stenleone.rockpaperscissors.model.network.Room
 import com.stenleone.rockpaperscissors.ui.activitys.base.BaseActivity
-import com.stenleone.rockpaperscissors.ui.adapters.recycler.GamersAdapter
+import com.stenleone.rockpaperscissors.ui.adapters.recycler.gameLay.GamersAdapter
 import com.stenleone.rockpaperscissors.ui.fragments.base.BaseFragment
 import com.stenleone.rockpaperscissors.utils.constants.RPS
 import com.stenleone.rockpaperscissors.workers.DestroyRoomWorker
 import com.stenleone.stanleysfilm.util.extencial.getOrientation
 import com.stenleone.stanleysfilm.util.extencial.throttleClicks
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -63,23 +64,49 @@ class HostPlayerFragment(override var layId: Int = R.layout.fragment_player) : B
                 }
                 binding.roundText.text = getString(R.string.round_text, it.round.toString(), it.games.toString())
 
-                gamerAdapter.listItems.clear()
                 val players = ArrayList(it.players.values)
-                players.removeFirstOrNull()
-                gamerAdapter.listItems.addAll(players)
-                gamerAdapter.notifyDataSetChanged()
+                var myIndex: Int? = null
+                players.forEachIndexed { index, item ->
+                    if (item.name == viewModel.name) {
+                        myIndex = index
+                    }
+                }
+                myIndex?.let {
+                    players.removeAt(it)
+                }
+
+                gamerAdapter.diffUpdateList(players)
+                updateRound(gamerAdapter.round, it)
             }
             error.observe(viewLifecycleOwner) {
 
             }
             lockButtons.observe(viewLifecycleOwner) {
                 binding.apply {
+//                    gamerAdapter.diffUpdateUserSteps(false)
+
+
+                }
+            }
+
+        }
+    }
+
+    private fun updateRound(oldRound: Int?, room: Room) {
+        if (oldRound ?: 0 < room.round) {
+            lifecycleScope.launch {
+                delay(3000)
+                Toast.makeText(requireContext(), "Round ${room.round} start", Toast.LENGTH_SHORT).show()
+                gamerAdapter.diffUpdateUserSteps(false)
+
+                binding.apply {
                     rockButton.isClickable = true
                     paperButton.isClickable = true
                     scissorsButton.isClickable = true
                 }
-            }
 
+                gamerAdapter.diffUpdateRound(room.round)
+            }
         }
     }
 
@@ -110,6 +137,8 @@ class HostPlayerFragment(override var layId: Int = R.layout.fragment_player) : B
 
     private fun createStep(step: RPS) {
         binding.apply {
+
+            gamerAdapter.diffUpdateUserSteps(true)
             rockButton.isClickable = false
             paperButton.isClickable = false
             scissorsButton.isClickable = false

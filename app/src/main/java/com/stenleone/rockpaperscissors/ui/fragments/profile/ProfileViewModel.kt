@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.stenleone.rockpaperscissors.managers.general.ConnectionManager
-import com.stenleone.rockpaperscissors.managers.network.ProfileCloudFirestoreManager
+import com.stenleone.rockpaperscissors.managers.network.fireStore.ProfileCloudFirestoreManager
 import com.stenleone.rockpaperscissors.model.general.DataState
 import com.stenleone.rockpaperscissors.model.network.User
 import com.stenleone.stanleysfilm.model.entity.RequestError

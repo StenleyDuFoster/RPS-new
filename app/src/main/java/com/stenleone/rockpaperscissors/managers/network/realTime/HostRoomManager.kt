@@ -1,4 +1,4 @@
-package com.stenleone.rockpaperscissors.managers.network
+package com.stenleone.rockpaperscissors.managers.network.realTime
 
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -7,6 +7,7 @@ import com.google.firebase.database.ValueEventListener
 import com.stenleone.rockpaperscissors.managers.network.base.BaseNetworkManager
 import com.stenleone.rockpaperscissors.model.network.GameUser
 import com.stenleone.rockpaperscissors.model.network.Room
+import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 class HostRoomManager @Inject constructor() : BaseNetworkManager() {
@@ -60,7 +61,6 @@ class HostRoomManager @Inject constructor() : BaseNetworkManager() {
             .addOnFailureListener {
                 failure(it.message ?: "")
             }
-
     }
 
     fun updateRoomPlayer(room: Room, success: () -> Unit, failure: (String) -> Unit) {
@@ -89,5 +89,9 @@ class HostRoomManager @Inject constructor() : BaseNetworkManager() {
             .addOnFailureListener {
                 failure(it.message ?: "")
             }
+    }
+
+    suspend fun removeUserFromRoom(roomName: String, userName: String) {
+        realTimeDB.getReference(ROOM_DB).child(roomName).child("players").child(userName).removeValue().await()
     }
 }

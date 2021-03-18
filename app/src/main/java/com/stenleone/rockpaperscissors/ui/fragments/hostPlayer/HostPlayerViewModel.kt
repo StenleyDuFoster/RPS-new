@@ -4,8 +4,8 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.stenleone.rockpaperscissors.managers.network.HostRoomManager
-import com.stenleone.rockpaperscissors.managers.network.ProfileCloudFirestoreManager
+import com.stenleone.rockpaperscissors.managers.network.realTime.HostRoomManager
+import com.stenleone.rockpaperscissors.managers.network.fireStore.ProfileCloudFirestoreManager
 import com.stenleone.rockpaperscissors.model.network.GameUser
 import com.stenleone.rockpaperscissors.model.network.Room
 import com.stenleone.rockpaperscissors.utils.constants.RPS
@@ -21,7 +21,7 @@ class HostPlayerViewModel @Inject constructor(
     private val profileCloudFirestoreManager: ProfileCloudFirestoreManager
 ) : ViewModel() {
 
-    private var name: String = ""
+    var name: String = ""
     private lateinit var roomControl: Room
 
     val roomData = MutableLiveData<Room>()

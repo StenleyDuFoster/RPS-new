@@ -6,6 +6,14 @@
     <data>
 
         <variable
+            name="round"
+            type="Integer" />
+
+        <variable
+            name="userStep"
+            type="Boolean" />
+
+        <variable
             name="gamer"
             type="com.stenleone.rockpaperscissors.model.network.GameUser" />
 
@@ -46,6 +54,8 @@
                     tools:text="побед: 0" />
 
                 <ImageView
+                    app:set_rps="@{(round != null &amp;&amp; round == gamer.steps.size()) ? gamer.steps.get(round - 1) : null}"
+                    app:set_user_step="@{userStep}"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     tools:src="@drawable/scissors" />

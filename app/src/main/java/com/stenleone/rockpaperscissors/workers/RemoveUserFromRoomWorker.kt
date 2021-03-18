@@ -9,14 +9,15 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 
 @HiltWorker
-class DestroyRoomWorker @AssistedInject constructor(
+class RemoveUserFromRoomWorker @AssistedInject constructor(
     @Assisted context: Context,
     @Assisted workerParams: WorkerParameters
 ) : CoroutineWorker(context, workerParams) {
 
     companion object {
-        const val TAG = "DestroyRoomWorker"
+        const val TAG = "RemoveUserFromRoomWorker"
         const val ROOM_NAME = "room_name"
+        const val PLAYER_NAME = "player_name"
     }
 
     private val hostRoomManager = HostRoomManager()
@@ -25,12 +26,10 @@ class DestroyRoomWorker @AssistedInject constructor(
 
         var result = Result.success()
 
-        inputData.getString(ROOM_NAME)?.let {
-            hostRoomManager.removeRoom(it, {
-
-            }, {
-                result = Result.failure()
-            })
+        inputData.getString(ROOM_NAME)?.let { roomName ->
+            inputData.getString(PLAYER_NAME)?.let { playerName ->
+                hostRoomManager.removeUserFromRoom(roomName, playerName)
+            }
         }
 
         return result

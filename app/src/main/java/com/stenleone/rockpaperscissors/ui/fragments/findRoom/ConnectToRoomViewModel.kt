@@ -2,8 +2,8 @@ package com.stenleone.rockpaperscissors.ui.fragments.findRoom
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.stenleone.rockpaperscissors.managers.network.ConnectRoomManager
-import com.stenleone.rockpaperscissors.managers.network.ProfileCloudFirestoreManager
+import com.stenleone.rockpaperscissors.managers.network.realTime.ConnectRoomManager
+import com.stenleone.rockpaperscissors.managers.network.fireStore.ProfileCloudFirestoreManager
 import com.stenleone.rockpaperscissors.model.network.Room
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject

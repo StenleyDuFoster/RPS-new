@@ -1,6 +1,8 @@
 package com.stenleone.stanleysfilm.util.extencial
 
+import android.R
 import android.app.Activity
+import android.content.Context
 import android.content.res.Configuration
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -21,10 +23,9 @@ fun Activity.getOrientation(): Int {
 }
 
 fun Activity.hideKeyboard() {
-    val imm: InputMethodManager = this.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-    var view: View? = this.getCurrentFocus()
-    if (view == null) {
-        view = View(this)
+    val view: View = this.findViewById(R.id.content)
+    if (view != null) {
+        val imm = this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
-    imm.hideSoftInputFromWindow(view.windowToken, 0)
 }

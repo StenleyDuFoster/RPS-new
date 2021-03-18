@@ -76,10 +76,7 @@ class RoomPassDialogFragment(override var layId: Int = R.layout.dialog_room_pass
     private fun setupViewModelCallBack() {
         viewModelConnectTo.apply {
             connected.observe(viewLifecycleOwner) {
-                val bundle = Bundle().also {
-                    it.putParcelable(PlayerFragment.ROOM, arguments?.getParcelable<Room>(ROOM))
-                }
-                (requireActivity() as MainActivity).addFragment(requireActivity().supportFragmentManager.findFragmentByTag(FindRoomFragment.TAG), PlayerFragment(), PlayerFragment.TAG, bundle)
+                (requireActivity() as MainActivity).addFragment(requireActivity().supportFragmentManager.findFragmentByTag(FindRoomFragment.TAG), PlayerFragment(), PlayerFragment.TAG, arguments?.getParcelable<Room>(ROOM))
                 dialog?.dismiss()
             }
             error.observe(viewLifecycleOwner) {
