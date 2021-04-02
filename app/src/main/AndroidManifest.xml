@@ -13,9 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.Launcher">
 
-        <activity android:name=".ui.activitys.AuthActivity">
-
-        </activity>
+        <activity android:name=".ui.activitys.AuthActivity"/>
 
         <activity android:name=".ui.activitys.MainActivity">
 
@@ -26,6 +24,8 @@
             </intent-filter>
 
         </activity>
+
+        <service android:name=".services.RoomControlService" />
 
     </application>
 

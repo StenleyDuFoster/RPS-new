@@ -75,6 +75,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
+            android:animateLayoutChanges="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -84,6 +85,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:animateLayoutChanges="true"
                 android:gravity="center"
                 android:orientation="horizontal">
 
@@ -136,27 +138,27 @@
 
         </soup.neumorphism.NeumorphCardView>
 
-        <soup.neumorphism.NeumorphCardView
-            android:id="@+id/playerLay"
-            style="@style/CustomShapeAppearanceRounded"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:minHeight="10dp"
-            app:layout_constraintBottom_toTopOf="@+id/controlsLay"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/gameLay"
-            app:neumorph_shapeType="pressed">
+        <!--        <soup.neumorphism.NeumorphCardView-->
+        <!--            android:id="@+id/playerLay"-->
+        <!--            style="@style/CustomShapeAppearanceRounded"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginStart="20dp"-->
+        <!--            android:layout_marginEnd="20dp"-->
+        <!--            android:minHeight="10dp"-->
+        <!--            app:layout_constraintBottom_toTopOf="@+id/controlsLay"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/gameLay"-->
+        <!--            app:neumorph_shapeType="pressed">-->
 
-            <ImageView
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:padding="10dp"
-                tools:src="@drawable/scissors" />
+        <!--            <ImageView-->
+        <!--                android:layout_width="70dp"-->
+        <!--                android:layout_height="70dp"-->
+        <!--                android:padding="10dp"-->
+        <!--                tools:src="@drawable/scissors" />-->
 
-        </soup.neumorphism.NeumorphCardView>
+        <!--        </soup.neumorphism.NeumorphCardView>-->
 
         <soup.neumorphism.NeumorphCardView
             android:id="@+id/gameLay"
@@ -166,7 +168,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:minHeight="10dp"
-            app:layout_constraintBottom_toTopOf="@+id/playerLay"
+            app:layout_constraintBottom_toTopOf="@+id/controlsLay"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/backButton"

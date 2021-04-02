@@ -1,8 +1,11 @@
 package com.stenleone.rockpaperscissors.ui.fragments.hostPlayer
 
 import android.util.Log
+import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
 import com.stenleone.rockpaperscissors.managers.network.realTime.HostRoomManager
 import com.stenleone.rockpaperscissors.managers.network.fireStore.ProfileCloudFirestoreManager
@@ -11,6 +14,7 @@ import com.stenleone.rockpaperscissors.model.network.Room
 import com.stenleone.rockpaperscissors.utils.constants.RPS
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -22,11 +26,12 @@ class HostPlayerViewModel @Inject constructor(
 ) : ViewModel() {
 
     var name: String = ""
-    private lateinit var roomControl: Room
+    lateinit var roomControl: Room
 
     val roomData = MutableLiveData<Room>()
     val error = MutableLiveData<String>()
     val lockButtons = MutableLiveData<Boolean>()
+    val round = MutableLiveData<Int>()
 
     fun setupRoom(room: Room) {
         if (roomData.value == null) {
@@ -54,6 +59,8 @@ class HostPlayerViewModel @Inject constructor(
             if (checkPlayersFinishRound(it)) {
                 lockButtons.postValue(false)
             }
+
+            updateRound(it.round, it)
 
         }, {
             error.postValue(it)
@@ -95,6 +102,15 @@ class HostPlayerViewModel @Inject constructor(
             withContext(Main) {
                 roomControl = room
                 roomData.postValue(room)
+            }
+        }
+    }
+
+    private fun updateRound(oldRound: Int?, room: Room) {
+        if (oldRound ?: 0 < room.round) {
+            viewModelScope.launch {
+                delay(3000)
+                round.postValue(room.round)
             }
         }
     }

@@ -2,6 +2,7 @@ package com.stenleone.rockpaperscissors.ui.fragments.player
 
 import android.content.res.Configuration
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -11,12 +12,11 @@ import androidx.work.*
 import com.stenleone.rockpaperscissors.R
 import com.stenleone.rockpaperscissors.databinding.FragmentPlayerBinding
 import com.stenleone.rockpaperscissors.model.network.Room
+import com.stenleone.rockpaperscissors.services.RoomControlService
 import com.stenleone.rockpaperscissors.ui.activitys.base.BaseActivity
 import com.stenleone.rockpaperscissors.ui.adapters.recycler.gameLay.GamersAdapter
 import com.stenleone.rockpaperscissors.ui.fragments.base.BaseFragment
-import com.stenleone.rockpaperscissors.ui.fragments.hostPlayer.HostPlayerViewModel
 import com.stenleone.rockpaperscissors.utils.constants.RPS
-import com.stenleone.rockpaperscissors.workers.DestroyRoomWorker
 import com.stenleone.rockpaperscissors.workers.RemoveUserFromRoomWorker
 import com.stenleone.stanleysfilm.util.extencial.getOrientation
 import com.stenleone.stanleysfilm.util.extencial.throttleClicks
@@ -34,6 +34,7 @@ class PlayerFragment(override var layId: Int = R.layout.fragment_player) : BaseF
     }
 
     private val viewModel: PlayerViewModel by viewModels()
+    private var isPlayerStarted = false
 
     @Inject
     lateinit var gamerAdapter: GamersAdapter
@@ -47,6 +48,7 @@ class PlayerFragment(override var layId: Int = R.layout.fragment_player) : BaseF
     private fun setupViewModel() {
         viewModel.apply {
             arguments?.getParcelable<Room>(BaseActivity.DATA)?.let {
+
                 setupRoom(it)
                 binding.apply {
                     gamerAdapter.size = it.playerCount - 1
@@ -61,6 +63,11 @@ class PlayerFragment(override var layId: Int = R.layout.fragment_player) : BaseF
                 }
             }
             roomData.observe(viewLifecycleOwner) {
+
+                if (!isPlayerStarted) {
+                    RoomControlService.setupPlayer(requireActivity(), it.name, viewModel.playerName)
+                    isPlayerStarted = true
+                }
 
                 if (it.round > it.games) {
                     Toast.makeText(requireContext(), "finish game", Toast.LENGTH_SHORT).show()
@@ -80,6 +87,23 @@ class PlayerFragment(override var layId: Int = R.layout.fragment_player) : BaseF
 
                 gamerAdapter.diffUpdateList(players)
                 updateRound(gamerAdapter.round, it)
+            }
+            roomData.observe(viewLifecycleOwner) {
+                Toast.makeText(requireContext(), "Round ${it.round} start", Toast.LENGTH_SHORT).show()
+                gamerAdapter.diffUpdateUserSteps(false)
+
+                binding.apply {
+
+                    paperButton.visibility = View.VISIBLE
+                    scissorsButton.visibility = View.VISIBLE
+                    rockButton.visibility = View.VISIBLE
+
+                    rockButton.isClickable = true
+                    paperButton.isClickable = true
+                    scissorsButton.isClickable = true
+                }
+
+                gamerAdapter.diffUpdateRound(it.round)
             }
             error.observe(viewLifecycleOwner) {
 
@@ -101,6 +125,10 @@ class PlayerFragment(override var layId: Int = R.layout.fragment_player) : BaseF
                 gamerAdapter.diffUpdateUserSteps(false)
 
                 binding.apply {
+                    paperButton.visibility = View.VISIBLE
+                    scissorsButton.visibility = View.VISIBLE
+                    rockButton.visibility = View.VISIBLE
+
                     rockButton.isClickable = true
                     paperButton.isClickable = true
                     scissorsButton.isClickable = true
@@ -113,6 +141,9 @@ class PlayerFragment(override var layId: Int = R.layout.fragment_player) : BaseF
 
     private fun setupClicks() {
         binding.apply {
+            rockButton.isClickable = true
+            paperButton.isClickable = true
+            scissorsButton.isClickable = true
             backButton.throttleClicks(
                 {
                     requireActivity().onBackPressed()
@@ -120,16 +151,22 @@ class PlayerFragment(override var layId: Int = R.layout.fragment_player) : BaseF
             )
             rockButton.throttleClicks(
                 {
+                    paperButton.visibility = View.GONE
+                    scissorsButton.visibility = View.GONE
                     createStep(RPS.ROCK)
                 }, lifecycleScope
             )
             scissorsButton.throttleClicks(
                 {
+                    rockButton.visibility = View.GONE
+                    paperButton.visibility = View.GONE
                     createStep(RPS.SCISSORS)
                 }, lifecycleScope
             )
             paperButton.throttleClicks(
                 {
+                    rockButton.visibility = View.GONE
+                    scissorsButton.visibility = View.GONE
                     createStep(RPS.PAPER)
                 }, lifecycleScope
             )
@@ -147,49 +184,8 @@ class PlayerFragment(override var layId: Int = R.layout.fragment_player) : BaseF
         viewModel.createStep(step)
     }
 
-    private fun removeUser(withDelay: Boolean = false) {
-        viewModel.roomData.value?.let { room ->
-
-            val constraints: Constraints = Constraints.Builder()
-                .setRequiredNetworkType(NetworkType.CONNECTED)
-                .build()
-
-            val data = Data.Builder().also {
-                it.putString(RemoveUserFromRoomWorker.ROOM_NAME, room.name)
-                it.putString(RemoveUserFromRoomWorker.PLAYER_NAME, viewModel.playerName)
-            }
-
-            val testWorkRequest = OneTimeWorkRequest.Builder(RemoveUserFromRoomWorker::class.java)
-                .setInputData(data.build())
-                .setConstraints(constraints)
-                .addTag(RemoveUserFromRoomWorker.TAG)
-
-            if (withDelay) {
-                testWorkRequest.setInitialDelay(15L, TimeUnit.MINUTES)
-            }
-
-            WorkManager
-                .getInstance(requireContext())
-                .enqueue(testWorkRequest.build())
-        }
-
-    }
-
-    override fun onPause() {
-        removeUser(true)
-        super.onPause()
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        WorkManager
-            .getInstance(requireContext())
-            .cancelAllWorkByTag(RemoveUserFromRoomWorker.TAG)
-    }
-
     override fun onDestroy() {
-        removeUser()
+        RoomControlService.destroyPlayer(requireActivity())
         super.onDestroy()
     }
 

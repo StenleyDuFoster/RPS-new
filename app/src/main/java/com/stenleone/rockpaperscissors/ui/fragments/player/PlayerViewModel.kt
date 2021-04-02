@@ -11,6 +11,7 @@ import com.stenleone.rockpaperscissors.model.network.Room
 import com.stenleone.rockpaperscissors.utils.constants.RPS
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -22,13 +23,14 @@ class PlayerViewModel @Inject constructor(
 ) : ViewModel() {
 
     var playerName: String = ""
-    private var roomName: String = ""
+    var roomName: String = ""
 
     private lateinit var userControl: GameUser
 
     val roomData = MutableLiveData<Room>()
     val error = MutableLiveData<String>()
     val lockButtons = MutableLiveData<Boolean>()
+    val round = MutableLiveData<Int>()
 
     fun setupRoom(room: Room) {
         if (roomData.value == null) {
@@ -66,9 +68,20 @@ class PlayerViewModel @Inject constructor(
             if (checkRoomStartNewRound(it)) {
                 lockButtons.postValue(false)
             }
+
+            updateRound(it.round, it)
         }, {
             error.postValue(it)
         })
+    }
+
+    private fun updateRound(oldRound: Int?, room: Room) {
+        if (oldRound ?: 0 < room.round) {
+            viewModelScope.launch {
+                delay(3000)
+                round.postValue(room.round)
+            }
+        }
     }
 
     private fun checkRoomStartNewRound(room: Room): Boolean {
