@@ -90,18 +90,7 @@ class PlayerFragment(override var layId: Int = R.layout.fragment_player) : BaseF
             }
             roomData.observe(viewLifecycleOwner) {
                 Toast.makeText(requireContext(), "Round ${it.round} start", Toast.LENGTH_SHORT).show()
-                gamerAdapter.diffUpdateUserSteps(false)
-
-                binding.apply {
-
-                    paperButton.visibility = View.VISIBLE
-                    scissorsButton.visibility = View.VISIBLE
-                    rockButton.visibility = View.VISIBLE
-
-                    rockButton.isClickable = true
-                    paperButton.isClickable = true
-                    scissorsButton.isClickable = true
-                }
+                gamerAdapter.diffUpdateUserSteps(!binding.rockButton.isClickable)
 
                 gamerAdapter.diffUpdateRound(it.round)
             }
@@ -110,7 +99,13 @@ class PlayerFragment(override var layId: Int = R.layout.fragment_player) : BaseF
             }
             lockButtons.observe(viewLifecycleOwner) {
                 binding.apply {
-
+//                    paperButton.visibility = View.VISIBLE
+//                    scissorsButton.visibility = View.VISIBLE
+//                    rockButton.visibility = View.VISIBLE
+//
+//                    rockButton.isClickable = true
+//                    paperButton.isClickable = true
+//                    scissorsButton.isClickable = true
                 }
             }
 

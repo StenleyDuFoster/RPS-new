@@ -78,29 +78,30 @@ class HostPlayerFragment(override var layId: Int = R.layout.fragment_player) : B
                 }
 
                 gamerAdapter.diffUpdateList(players)
+                updateRound(gamerAdapter.round, it)
             }
             roomData.observe(viewLifecycleOwner) {
                 Toast.makeText(requireContext(), "Round ${it.round} start", Toast.LENGTH_SHORT).show()
-                gamerAdapter.diffUpdateUserSteps(false)
-
-                binding.apply {
-
-                    paperButton.visibility = View.VISIBLE
-                    scissorsButton.visibility = View.VISIBLE
-                    rockButton.visibility = View.VISIBLE
-
-                    rockButton.isClickable = true
-                    paperButton.isClickable = true
-                    scissorsButton.isClickable = true
-                }
-
+                gamerAdapter.diffUpdateUserSteps(!binding.rockButton.isClickable)
                 gamerAdapter.diffUpdateRound(it.round)
             }
             error.observe(viewLifecycleOwner) {
 
             }
+            round.observe(viewLifecycleOwner) {
+
+            }
             lockButtons.observe(viewLifecycleOwner) {
                 binding.apply {
+                    if (!it) {
+//                        paperButton.visibility = View.VISIBLE
+//                        scissorsButton.visibility = View.VISIBLE
+//                        rockButton.visibility = View.VISIBLE
+//
+//                        rockButton.isClickable = true
+//                        paperButton.isClickable = true
+//                        scissorsButton.isClickable = true
+                    }
 //                    gamerAdapter.diffUpdateUserSteps(false)
 
 
@@ -110,7 +111,27 @@ class HostPlayerFragment(override var layId: Int = R.layout.fragment_player) : B
         }
     }
 
+    private fun updateRound(oldRound: Int?, room: Room) {
+        if (oldRound ?: 0 < room.round) {
+            lifecycleScope.launch {
+                delay(3000)
+                Toast.makeText(requireContext(), "Round ${room.round} start", Toast.LENGTH_SHORT).show()
+                gamerAdapter.diffUpdateUserSteps(false)
 
+                binding.apply {
+                    paperButton.visibility = View.VISIBLE
+                    scissorsButton.visibility = View.VISIBLE
+                    rockButton.visibility = View.VISIBLE
+
+                    rockButton.isClickable = true
+                    paperButton.isClickable = true
+                    scissorsButton.isClickable = true
+                }
+
+                gamerAdapter.diffUpdateRound(room.round)
+            }
+        }
+    }
 
     private fun setupClicks() {
         binding.apply {

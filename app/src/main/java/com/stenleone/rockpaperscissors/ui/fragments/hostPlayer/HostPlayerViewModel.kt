@@ -90,11 +90,15 @@ class HostPlayerViewModel @Inject constructor(
     }
 
     private fun updateRound(room: Room) {
-        hostRoomManager.updateRoomRound(room, {
+        viewModelScope.launch {
+            delay(3000)
+            hostRoomManager.updateRoomRound(room, {
 
-        }, {
-            error.postValue(it)
-        })
+            }, {
+                error.postValue(it)
+            })
+        }
+
     }
 
     private fun savePlayerControl(room: Room) {
@@ -107,7 +111,7 @@ class HostPlayerViewModel @Inject constructor(
     }
 
     private fun updateRound(oldRound: Int?, room: Room) {
-        if (oldRound ?: 0 < room.round) {
+        if (oldRound ?: 0 < room.games) {
             viewModelScope.launch {
                 delay(3000)
                 round.postValue(room.round)
