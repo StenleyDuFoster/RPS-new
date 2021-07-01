@@ -29,7 +29,7 @@ class AuthActivity(override var layId: Int = R.layout.activity_register) : BaseA
     override fun onBackPressed() {
         super.onBackPressed()
         if (supportFragmentManager.fragments.size == 0) {
-            finish()
+            finish()//
         }
     }
 
